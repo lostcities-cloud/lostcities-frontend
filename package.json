@@ -5,7 +5,9 @@
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "lint": "vue-cli-service lint",
+    "test": "npm run lint && npm run unit",
+    "unit": "jest"
   },
   "dependencies": {
     "@vue/cli-plugin-babel": "4.1.1",
@@ -18,6 +20,10 @@
   "devDependencies": {
     "@vue/cli-plugin-eslint": "4.1.1",
     "@vue/cli-service": "4.1.1",
+    "@vue/test-utils": "^1.0.0-beta.24",
+    "jest": "^21.1.0",
+    "jest-serializer-vue": "^0.2.0",
+    "vue-jest": "^2.6.0",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
     "eslint-plugin-vue": "^6.0.1",
@@ -47,6 +53,29 @@
     "last 2 versions",
     "not ie <= 8"
   ],
+
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "vue"
+    ],
+    "modulePaths": [
+      "<rootDir>/src",
+      "/opt/node/node_modules"
+    ],
+    "transform": {
+      "^.+\\.js$": "/opt/node/node_modules/babel-jest",
+      ".*\\.(vue)$": "/opt/node/node_modules/vue-jest"
+    },
+    "snapshotSerializers": [
+      "/opt/node/node_modules/jest-serializer-vue"
+    ],
+    "moduleNameMapper": {
+      "^@/(.*)$": "<rootDir>/src/$1"
+    }
+  }
+
+
   "keywords": [],
   "description": ""
 }
