@@ -38,7 +38,9 @@
       "plugin:vue/essential",
       "eslint:recommended"
     ],
-    "rules": {},
+    "rules": {
+      "no-debugger": 1
+    },
     "parserOptions": {
       "parser": "babel-eslint"
     }
@@ -53,7 +55,6 @@
     "last 2 versions",
     "not ie <= 8"
   ],
-
   "jest": {
     "moduleFileExtensions": [
       "js",
@@ -73,9 +74,7 @@
     "moduleNameMapper": {
       "^@/(.*)$": "<rootDir>/src/$1"
     }
-  }
-
-
+  },
   "keywords": [],
   "description": ""
 }

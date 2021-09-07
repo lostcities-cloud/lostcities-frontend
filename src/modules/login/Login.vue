@@ -1,6 +1,5 @@
 <template>
   <b-form>
-    <b-alert v-if="showError" show dismissible fade>Dismissible Alert!</b-alert>
     <b-form-group label="Login" label-for="login" label-size="sm">
       <b-form-input id="login" v-model="loginForm.login"></b-form-input>
     </b-form-group>
@@ -20,14 +19,13 @@
 </template>
 
 <script>
-import AccountsService from "../../common/accounts-service";
-let accountsService = new AccountsService();
 
 export default {
   name: "login",
+  inject: ['accountsService'],
   data: function () {
     return {
-      showError,
+      showError: false,
       loginForm: {
         login: "",
         password: "",
@@ -38,11 +36,11 @@ export default {
   methods: {
     async doLogin() {
       try {
-        await accountsService.login(
+        await this.accountsService.login(
           this.loginForm
         );
 
-        this.$router.push({ path: "/" });
+        return this.$router.push({ path: "/" });
       } catch (e) {
         this.showError = true;
       }

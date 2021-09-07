@@ -10,30 +10,29 @@ export default class AccountsService {
 
   async login(loginForm) {
     if(!this._isValidLogin(loginForm)) {
-      throw new Exception("Invalid login.", {})
+      throw new Error("Invalid login.")
     }
 
     try {
-      let response = await this.axios.post('/authenticate', loginForm)
+      let response = await this.axios.post('/api/accounts/authenticate', loginForm)
       return response.body
     } catch(e) {
-      throw new Exception("Unable to authenticate.", e)
+      throw new Error("Unable to authenticate.")
     }
-    
   }
 
   async register(registrationForm) {
     if(!this._isValidRegistration(registrationForm)) {
-      throw new Exception("Invalid registeration form.", {})
+      throw new Error("Invalid registeration form.", {})
     }
 
     try {
       return this.axios.post(
-          '/register',
+          '/api/accounts/register',
           registrationForm
       )
     } catch(e) {
-      throw new Exception("Unable to register.", e)
+      throw new Error("Unable to register.", e)
     }
   }
 
@@ -46,12 +45,12 @@ export default class AccountsService {
     return this.validateField(registrationForm.login) &&
             this.validateField(registrationForm.email) &&
             this.validateField(registrationForm.firstName) &&
-            this.validateField(registrationForm.lastname) &&
+            this.validateField(registrationForm.lastName) &&
             this.validateField(registrationForm.password)
   }
 
 
   validateField(field) {
-    return typeof field === "String" && field.length > 2;
+    return typeof field === "string" && field.length > 2;
   }
 }

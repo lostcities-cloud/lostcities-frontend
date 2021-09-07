@@ -3,8 +3,8 @@ import VueRouter from "vue-router";
 import ApplicationView from "./common/navigation/ApplicationView";
 import UnauthenticatedView from "./common/navigation/UnauthenticatedView"
 
-import Register from "./components/register/Register";
-import Login from "./components/login/Login";
+import Register from "./modules/register/Register";
+import Login from "./modules/login/Login";
 
 export default function configureRouter(vue) {
   vue.use(VueRouter);

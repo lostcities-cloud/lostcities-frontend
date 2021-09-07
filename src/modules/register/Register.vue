@@ -29,12 +29,9 @@
 </template>
 
 <script>
-import AccountsService from "../../common/accounts-service";
-
-let accountsService = new AccountsService();
-
 export default {
   name: "login",
+  inject: ['accountsService'],
   data: function () {
     return {
       registrationForm: {
@@ -48,7 +45,7 @@ export default {
   },
   methods: {
     async doRegister() {
-      await accountsService.register(
+      await this.accountsService.register(
         this.registrationForm
       );
 
