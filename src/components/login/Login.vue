@@ -17,7 +17,9 @@
 </template>
 
 <script>
-import AccountsService from "./login-service";
+import AccountsService from "../../common/accounts-service";
+let accountsService = new AccountsService();
+
 export default {
   name: "login",
   data: function () {
@@ -27,5 +29,10 @@ export default {
       rememberMe: false,
     };
   },
+  methods: {
+    doLogin() {
+        accountsService
+    }
+  }
 };
 </script>

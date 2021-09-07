@@ -1,5 +1,5 @@
 {
-  "name": "lost-cities-example",
+  "name": "lostcities-frontend",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -10,6 +10,7 @@
   "dependencies": {
     "@vue/cli-plugin-babel": "4.1.1",
     "vue": "^2.6.11",
+    "axios": "0.21.1",
     "bootstrap": "4.5.3",
     "bootstrap-vue": "2.21.2",
     "vue-router": "3.5.2"

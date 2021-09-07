@@ -14,8 +14,8 @@ export default class AccountsService {
 
   async register(login, email, password, firstName, lastName) {
     return this.axios.post(
-      '/register', 
-      {login, email, password, firstName, lastName}
+        '/register',
+        {login, email, password, firstName, lastName}
     )
   }
 }
