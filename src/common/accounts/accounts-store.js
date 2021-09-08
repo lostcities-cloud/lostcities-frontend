@@ -1,7 +1,7 @@
 import AccountsService from "@/common/accounts/accounts-service";
 import LocalAuthRepository from "./local-auth-service";
 
-const LocalAuthRepository = new LocalAuthRepository();
+const localAuthRepository = new LocalAuthRepository();
 const accountsService = new AccountsService();
 
 function emptyState() {
@@ -42,7 +42,8 @@ const mutations = {
     },
 
     logoutMutation(state) {
-        state = emptyState();
+        state.login = null;
+        state.token = null;
         localAuthRepository.clear();
     },
 
