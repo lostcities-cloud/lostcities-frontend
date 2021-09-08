@@ -29,9 +29,10 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
+
 export default {
   name: "login",
-  inject: ['accountsService'],
   data: function () {
     return {
       registrationForm: {
@@ -44,12 +45,14 @@ export default {
     };
   },
   methods: {
+    ...mapActions('accounts', ['register']),
     async doRegister() {
-      await this.accountsService.register(
-        this.registrationForm
-      );
-
-      this.$router.push({ path: "/" });
+      try {
+        await this.register({registrationForm: this.registrationForm});
+        return this.$router.push({path: "/login"});
+      } catch(e) {
+        //Handle
+      }
     }
 
   }

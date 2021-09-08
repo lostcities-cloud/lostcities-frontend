@@ -15,7 +15,7 @@ export default class AccountsService {
 
     try {
       let response = await this.axios.post('/api/accounts/authenticate', loginForm)
-      return response.body
+      return response.data
     } catch(e) {
       throw new Error("Unable to authenticate.")
     }

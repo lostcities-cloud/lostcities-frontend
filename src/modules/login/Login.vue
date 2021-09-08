@@ -19,10 +19,10 @@
 </template>
 
 <script>
+import { mapActions } from 'vuex'
 
 export default {
   name: "login",
-  inject: ['accountsService'],
   data: function () {
     return {
       showError: false,
@@ -34,11 +34,10 @@ export default {
     };
   },
   methods: {
+    ...mapActions('accounts', ['login']),
     async doLogin() {
       try {
-        await this.accountsService.login(
-          this.loginForm
-        );
+        await this.login({loginForm: this.loginForm});
 
         return this.$router.push({ path: "/" });
       } catch (e) {
