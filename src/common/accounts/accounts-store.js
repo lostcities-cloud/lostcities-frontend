@@ -1,8 +1,10 @@
 import AccountsService from "@/common/accounts/accounts-service";
+import LocalAuthRepository from "./local-auth-service";
 
+const LocalAuthRepository = new LocalAuthRepository();
 const accountsService = new AccountsService();
 
-function state() {
+function emptyState() {
     return {
         isAuthenticated: false,
         login: null,
@@ -10,8 +12,24 @@ function state() {
     }
 }
 
-const getters = {
+function state() {
+    if(!localAuthRepository.isAuthenticated()) {
+        return emptyState()
+    }
 
+    const auth = localAuthRepository.get()
+
+    return {
+        isAuthenticated: true,
+        login: auth.login,
+        token: auth.token
+    }
+}
+
+const getters = {
+    isAuthenticated(state) {
+        return state.isAuthenticated;
+    }
 }
 
 const mutations = {
@@ -19,13 +37,24 @@ const mutations = {
         state.isAuthenticated = true;
         state.login = loginResponse.login;
         state.token = loginResponse.token;
+
+        localAuthRepository.store(state)
     },
+
+    logoutMutation(state) {
+        state = emptyState();
+        localAuthRepository.clear();
+    },
+
     emptyMutation() {
         // Do nothing
     }
 }
 
 const actions = {
+    logout({commit}) {
+        return commit('logoutMutation')
+    },
     async login({commit}, request) {
         debugger;
         try {
@@ -35,6 +64,7 @@ const actions = {
             // Do Something
         }
     },
+    
     async register({commit}, request) {
         await accountsService.register(request.registrationForm)
         return commit()

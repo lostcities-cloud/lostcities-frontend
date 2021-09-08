@@ -18,28 +18,63 @@ export default function configureRouter(vue) {
   const Unicode = { template: '<div>unicode</div>' }
   const Query = { template: '<div>query: "{{ $route.params.q }}"</div>' }
 
-  return new VueRouter({
+  let router = new VueRouter({
     mode: "history",
     //base: __dirname,
     routes: [
       { 
         path: "/", 
         component: Home, 
-        meta: { layout : 'application-view'}
+        meta: { 
+          layout : 'application-view', 
+          requiresAuth: false
+        }
       },
       { 
-        path: "/login", 
+        name: 'Login',
+        path: '/login', 
         component: Login, 
-        meta: { layout : 'unauthenticated-view'} 
+        meta: { 
+          layout : 'unauthenticated-view', 
+          requiresAuth: false
+        } 
       },
       { 
         path: "/register", 
         component: Register, 
-        meta: { layout : 'unauthenticated-view'} 
+        meta: { 
+          layout : 'unauthenticated-view', 
+          requiresAuth: false
+        } 
       },
-      { path: "/bar", component: Bar },
+      { 
+        path: "/matches", 
+        component: Bar,
+        meta: {
+          layout : 'application-view',
+          requiresAuth: true 
+        }
+      },
+      { 
+        path: "/game/:gameId", 
+        component: Bar,
+        meta: {
+          layout : 'application-view',
+          requiresAuth: true 
+        }
+      },
       { path: encodeURI("/é"), component: Unicode },
       { path: "/query/:q", component: Query }
     ]
   });
+
+  router.beforeEach((to, from, next) => {
+    if (to.meta.requiresAuth && !isAuthenticated) {
+      next({ name: 'Login' })  
+    } else {
+      next()
+    }
+  })
+
+  return router;
 }
