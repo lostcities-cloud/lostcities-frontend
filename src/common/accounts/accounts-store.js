@@ -1,5 +1,5 @@
 import AccountsService from "@/common/accounts/accounts-service";
-import LocalAuthRepository from "./local-auth-service";
+import LocalAuthRepository from "@/common/accounts/local-auth-repository";
 
 const localAuthRepository = new LocalAuthRepository();
 const accountsService = new AccountsService();
@@ -42,6 +42,7 @@ const mutations = {
     },
 
     logoutMutation(state) {
+        state.isAuthenticated = false;
         state.login = null;
         state.token = null;
         localAuthRepository.clear();
@@ -57,7 +58,6 @@ const actions = {
         return commit('logoutMutation')
     },
     async login({commit}, request) {
-        debugger;
         try {
             const loginResponse = await accountsService.login(request.loginForm)
             commit('loginMutation', loginResponse)

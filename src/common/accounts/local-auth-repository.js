@@ -1,6 +1,6 @@
 const AUTH_VALUE = 'auth'
 
-export class LocalAuthRepository {
+export default class LocalAuthRepository {
     isAuthenticated() {
         return !!this.get()
     }

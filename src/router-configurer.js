@@ -5,8 +5,9 @@ import UnauthenticatedView from "./common/navigation/UnauthenticatedView"
 
 import Register from "./modules/register/Register";
 import Login from "./modules/login/Login";
+import Match from "./modules/matches/Match";
 
-import LocalAuthRepository from "@/common/accounts/local-auth-service";
+import LocalAuthRepository from "@/common/accounts/local-auth-repository";
 const localAuthRepository = new LocalAuthRepository();
 
 export default function configureRouter(vue) {
@@ -17,7 +18,6 @@ export default function configureRouter(vue) {
 
   // 2. Define route components
   const Home = { template: '<div>home</div>' }
-  const Bar = { template: '<div>bar</div>' }
   const Unicode = { template: '<div>unicode</div>' }
   const Query = { template: '<div>query: "{{ $route.params.q }}"</div>' }
 
@@ -52,26 +52,27 @@ export default function configureRouter(vue) {
       },
       { 
         path: "/matches", 
-        component: Bar,
+        component: Match,
         meta: {
           layout : 'application-view',
           requiresAuth: true 
         }
       },
-      { 
-        path: "/game/:gameId", 
-        component: Bar,
-        meta: {
-          layout : 'application-view',
-          requiresAuth: true 
-        }
-      },
+      //{
+      //  path: "/game/:gameId",
+      //  component: Query,
+      //  meta: {
+      //    layout : 'application-view',
+      //    requiresAuth: true
+      //  }
+      //},
       { path: encodeURI("/é"), component: Unicode },
       { path: "/query/:q", component: Query }
     ]
   });
 
   router.beforeEach((to, from, next) => {
+    debugger;
     if (to.meta.requiresAuth && !localAuthRepository.isAuthenticated()) {
       next({ name: 'Login' })  
     } else {
