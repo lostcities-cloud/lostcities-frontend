@@ -1,7 +1,11 @@
 <template>
-  <component :is="$route.meta.layout">
-    <router-view class="view"></router-view>
-  </component>
+  <div>
+    <notifications/>
+    <component :is="$route.meta.layout">
+
+      <router-view class="view"></router-view>
+    </component>
+  </div>
 </template>
 
 <script>

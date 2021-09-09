@@ -1,5 +1,6 @@
 import AccountsService from "@/common/accounts/accounts-service";
 import LocalAuthRepository from "@/common/accounts/local-auth-repository";
+import { router } from "@/main";
 
 const localAuthRepository = new LocalAuthRepository();
 const accountsService = new AccountsService();
@@ -55,14 +56,16 @@ const mutations = {
 
 const actions = {
     logout({commit}) {
-        return commit('logoutMutation')
+        commit('logoutMutation')
+        router.go();
     },
     async login({commit}, request) {
         try {
             const loginResponse = await accountsService.login(request.loginForm)
             commit('loginMutation', loginResponse)
+            return true;
         } catch (e) {
-            // Do Something
+            return false;
         }
     },
     

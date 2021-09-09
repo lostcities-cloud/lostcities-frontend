@@ -6,21 +6,20 @@ import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
 import 'bootstrap/dist/css/bootstrap.css'
 import 'bootstrap-vue/dist/bootstrap-vue.css'
 
+import Notifications from 'vue-notification'
+
 import accountsStore from "@/common/accounts/accounts-store";
 
 import App from "./App.vue";
 
 Vue.config.productionTip = false;
 
-let router = configureRouter(Vue);
-
-
+export let router = configureRouter(Vue);
 
 Vue.use(Vuex)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)
-
-
+Vue.use(Notifications)
 
 new Vue({
   router,
