@@ -1,21 +1,25 @@
 <template>
   <b-form @submit="doLogin">
-    <b-form-group label="Login" label-for="login" label-size="sm">
-      <b-form-input id="login" v-model="loginForm.login"></b-form-input>
+    <b-form-group>
+      <b-form-input id="login" v-model="loginForm.login" placeholder="Login"></b-form-input>
     </b-form-group>
-    <b-form-group label="Password" label-for="password" label-size="sm">
-      <b-form-input type="password" id="password" v-model="loginForm.password"></b-form-input>
+    <b-form-group>
+      <b-form-input type="password" id="password" v-model="loginForm.password" placeholder="Password">
+      </b-form-input>
     </b-form-group>
     <b-form-group>
       <b-form-checkbox v-model="loginForm.rememberMe" id="remember-me">
         Remember Me
       </b-form-checkbox>
     </b-form-group>
-    <b-button variant="outline-primary" type="submit">
+    <b-button variant="btn btn-block btn-outline-primary" type="submit">
       Login
     </b-button>
-    <p>
-      Don't have an account? <router-link to="/register">Register</router-link>
+    <p class="registration">
+      <small>
+        Don't have an account?
+        <router-link class="font-weight-bold" to="/register">Register</router-link>
+      </small>
     </p>
   </b-form>
 </template>
@@ -25,7 +29,7 @@ import { mapActions } from 'vuex'
 
 export default {
   name: "login",
-  data: function () {
+  data() {
     return {
       showError: false,
       loginForm: {
@@ -39,15 +43,15 @@ export default {
     ...mapActions('accounts', ['login']),
     async doLogin(event) {
       event.preventDefault()
-
-      let isAuthenticated = await this.login({loginForm: this.loginForm});
-
-      if(isAuthenticated) {
-        return this.$router.push({path: "/"});
-      } else {
-        this.$notify('Unable to login!')
-      }
+      return this.login({loginForm: this.loginForm});
     }
   }
 };
 </script>
+
+<style>
+.registration {
+  margin: 30px auto 0;
+  text-align: center;
+}
+</style>

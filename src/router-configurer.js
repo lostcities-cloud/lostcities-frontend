@@ -5,7 +5,7 @@ import UnauthenticatedView from "./common/navigation/UnauthenticatedView"
 
 import Register from "./modules/register/Register";
 import Login from "./modules/login/Login";
-import Match from "./modules/matches/Match";
+import Match from "./modules/matches/Matches";
 
 import LocalAuthRepository from "@/common/accounts/local-auth-repository";
 const localAuthRepository = new LocalAuthRepository();
@@ -72,6 +72,7 @@ export default function configureRouter(vue) {
   });
 
   router.beforeEach((to, from, next) => {
+    console.dir(to.meta)
     if (to.meta.requiresAuth && !localAuthRepository.isAuthenticated()) {
       next({ name: 'Login' })  
     } else {

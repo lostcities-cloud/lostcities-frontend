@@ -1,28 +1,33 @@
 <template>
-  <b-form>
+  <b-form @submit="doRegister">
     <b-row>
       <b-col>
         <b-form-group>
-          <b-form-input id="first-name" v-model="registrationForm.firstName" placeholder="First Name"></b-form-input>
+          <b-form-input id="first-name" v-model="registrationForm.firstName" placeholder="First Name">
+          </b-form-input>
         </b-form-group>
       </b-col>
       <b-col>
         <b-form-group>
-          <b-form-input id="last-name" v-model="registrationForm.lastName" placeholder="Last Name"></b-form-input>
+          <b-form-input id="last-name" v-model="registrationForm.lastName" placeholder="Last Name">
+          </b-form-input>
         </b-form-group>
       </b-col>
     </b-row>
 
     <b-form-group>
-      <b-form-input id="login" v-model="registrationForm.login" placeholder="Login"></b-form-input>
+      <b-form-input id="login" v-model="registrationForm.login" placeholder="Login">
+      </b-form-input>
     </b-form-group>
     <b-form-group>
-      <b-form-input id="email" v-model="registrationForm.email" placeholder="Email"></b-form-input>
+      <b-form-input id="email" v-model="registrationForm.email" placeholder="Email">
+      </b-form-input>
     </b-form-group>
     <b-form-group>
-      <b-form-input id="password" type="password" v-model="registrationForm.password" placeholder="Password"></b-form-input>
+      <b-form-input id="password" type="password" v-model="registrationForm.password" placeholder="Password">
+      </b-form-input>
     </b-form-group>
-    <b-button variant="outline-primary" class="btn-block" v-on:click="doRegister()">
+    <b-button variant="outline-primary" class="btn-block" type="submit">
       Register
     </b-button>
   </b-form>
@@ -32,7 +37,7 @@
 import { mapActions } from 'vuex'
 
 export default {
-  name: "login",
+  name: "register",
   data: function () {
     return {
       registrationForm: {
@@ -46,13 +51,10 @@ export default {
   },
   methods: {
     ...mapActions('accounts', ['register']),
-    async doRegister() {
-      try {
-        await this.register({registrationForm: this.registrationForm});
-        return this.$router.push({path: "/login"});
-      } catch(e) {
-        //Handle
-      }
+    async doRegister(event) {
+      event.preventDefault()
+      this.register({registrationForm: this.registrationForm});
+
     }
 
   }
