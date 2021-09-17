@@ -3,8 +3,7 @@ import axios from 'axios';
 export default class AccountsService {
   constructor() {
     this.axios = axios.create({
-      baseUrl: process.env.ACCOUNTS_API,
-      timeout: 2000
+      baseUrl: process.env.ACCOUNTS_API
     })
   }
 
@@ -17,6 +16,7 @@ export default class AccountsService {
       let response = await this.axios.post('/api/accounts/authenticate', loginForm)
       return response.data
     } catch(e) {
+      console.dir(e)
       throw new Error("Unable to authenticate.")
     }
   }

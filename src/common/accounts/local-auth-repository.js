@@ -2,14 +2,14 @@ const AUTH_VALUE = 'auth'
 
 export default class LocalAuthRepository {
     isAuthenticated() {
-        return !!this.get()
+        return this.get() && this.get().token
     }
 
     get() {
         let auth = localStorage.getItem(AUTH_VALUE)
 
         if(!auth) {
-            return
+            return {}
         } 
 
         return JSON.parse(auth);

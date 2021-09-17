@@ -21,7 +21,6 @@ export default {
     ...mapActions('matches', ['getMatches']),
 
     async createMatch(ai=false) {
-      debugger;
       try {
         const createdMatch = await this.matchesService.create(ai)
         this.$notify({
