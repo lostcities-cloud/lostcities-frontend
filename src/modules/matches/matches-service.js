@@ -32,12 +32,21 @@ export default class MatchesService {
     }
   }
 
+  async join(id) {
+    try {
+      let response = await this.axios.patch(`/api/matches/${id}`)
+      return response.data
+    } catch(e) {
+      throw new Error("Unable to create match.")
+    }
+  }
+
   async getMatches() {
     try {
       let response = await this.axios.get('/api/matches')
       return response.data
     } catch(e) {
-      throw new Error("Unable to get matchesW.")
+      throw new Error("Unable to get matches.")
     }
   }
 }

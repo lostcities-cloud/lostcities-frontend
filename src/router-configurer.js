@@ -6,6 +6,7 @@ import UnauthenticatedView from "./common/navigation/UnauthenticatedView"
 import Register from "./modules/register/Register";
 import Login from "./modules/login/Login";
 import Match from "./modules/matches/Matches";
+import Game from "./modules/game/Game";
 
 import LocalAuthRepository from "@/common/accounts/local-auth-repository";
 const localAuthRepository = new LocalAuthRepository();
@@ -18,8 +19,7 @@ export default function configureRouter(vue) {
 
   // 2. Define route components
   const Home = { template: '<div>home</div>' }
-  const Unicode = { template: '<div>unicode</div>' }
-  const Query = { template: '<div>query: "{{ $route.params.q }}"</div>' }
+
 
   let router = new VueRouter({
     mode: "history",
@@ -58,16 +58,15 @@ export default function configureRouter(vue) {
           requiresAuth: true 
         }
       },
-      //{
-      //  path: "/game/:gameId",
-      //  component: Query,
-      //  meta: {
-      //    layout : 'application-view',
-      //    requiresAuth: true
-      //  }
-      //},
-      { path: encodeURI("/é"), component: Unicode },
-      { path: "/query/:q", component: Query }
+      {
+        name: "game",
+        path: "/game/:id",
+        component: Game,
+        meta: {
+          layout : 'application-view',
+          requiresAuth: true
+        }
+      }
     ]
   });
 
