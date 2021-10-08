@@ -11,9 +11,9 @@ export default class MatchesService {
 
     this.axios.interceptors.request.use(function (config) {
       if(localAuthRepository.isAuthenticated()) {
-        config.headers.common.Authentication = `Bearer ${localAuthRepository.get().token}`
+        config.headers.common.Authorization = `Bearer ${localAuthRepository.get().token}`
       } else {
-        config.headers.common.Authentication = null;
+        config.headers.common.Authorization = null;
       }
 
       return config;
