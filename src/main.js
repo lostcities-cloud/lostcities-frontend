@@ -22,6 +22,8 @@ export let router = configureRouter(Vue);
 export let localAuthRepository = new LocalAuthRepository()
 export let matchesService = new MatchesService()
 
+
+
 Vue.use(Vuex)
 Vue.use(BootstrapVue)
 Vue.use(IconsPlugin)

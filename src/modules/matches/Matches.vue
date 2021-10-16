@@ -1,54 +1,62 @@
 <template>
   <div>
-    <h1>Matches</h1>
-    <b-button v-on:click="createMatch()">Create Game</b-button>
-    <b-button v-on:click="createMatch(true)">Start AI Match</b-button>
 
-    <b-card-group class="matches">
-      <b-card class="text-left" v-for="(match, i) in matches" v-bind:key="i">
-        <template #header>
-          <h4 class="mb-0">Match {{match.id}}</h4>
-        </template>
-        <b-card-text v-if="match.players.user1">
-          {{match.players.user1}}
-        </b-card-text>
-        <b-card-text v-if="match.players.user2">
-          {{match.players.user2}}
-        </b-card-text>
+    <div class="text-center bg-light border-bottom"  style="padding-top: 100px; padding-bottom: 30px;">
+      <h1 class="mb-3">Matches</h1>
 
-        <b-card-text v-if="match.players.user2">
-          {{match.isReady}}
-        </b-card-text>
+      <b-button v-on:click="createMatch()">Create Game</b-button>
+      <b-button v-on:click="createMatch(true)">Start AI Match</b-button>
+    </div>
 
-        <b-card-text>
-          {{ JSON.stringify(match) }}
-        </b-card-text>
+    <b-container style="margin-top: 50px;">
+      <b-card-group deck class="matches">
+        <b-row v-for="(match, i) in matches" v-bind:key="i">
+          <b-card class="text-left">
+            <template #header>
+              <h4 class="mb-0">Match {{match.id}}</h4>
+            </template>
+            <b-card-text v-if="match.players.user1">
+              {{match.players.user1}}
+            </b-card-text>
+            <b-card-text v-if="match.players.user2">
+              {{match.players.user2}}
+            </b-card-text>
 
+            <b-card-text v-if="match.players.user2">
+              {{match.isReady}}
+            </b-card-text>
 
-
-        <b-button v-if="match.isReady && isMyMatch(match)"
-            class="game-links"
-            variant="primary"
-            :to="{ name: 'game', params: { id: match.id }}"
-        >
-          Play
-        </b-button>
-        <b-button v-if="match.isReady && isMyMatch(match)"
-            class="game-links"
-            variant="primary">
-          Resign
-        </b-button>
-
-        <b-button v-if="canJoin(match)" v-on:click="join(match.id)"
-            class="game-links"
-            variant="primary"
-        >
-          Join
-        </b-button>
+            <b-card-text>
+              {{ JSON.stringify(match) }}
+            </b-card-text>
 
 
-      </b-card>
-    </b-card-group>
+
+            <b-button v-if="match.isReady && isMyMatch(match)"
+                class="game-links"
+                variant="primary"
+                :to="{ name: 'game', params: { id: match.id }}"
+            >
+              Play
+            </b-button>
+            <b-button v-if="match.isReady && isMyMatch(match)"
+                class="game-links"
+                variant="primary">
+              Resign
+            </b-button>
+
+            <b-button v-if="canJoin(match)" v-on:click="join(match.id)"
+                class="game-links"
+                variant="primary"
+            >
+              Join
+            </b-button>
+
+
+          </b-card>
+        </b-row>
+      </b-card-group>
+    </b-container>
   </div>
 </template>
 
@@ -119,8 +127,7 @@ export default {
 <style>
 
 .matches {
-  width:700px;
-  margin: 20px auto;
+
 }
 
 .card {
