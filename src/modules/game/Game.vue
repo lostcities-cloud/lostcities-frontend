@@ -16,11 +16,11 @@ export default {
       game: {}
     }
   },
-  //inject: [
-  //
-  //],
+  inject: [
+    'gamesService'
+  ],
   created() {
-    debugger;
+    console.dir(this.gamesService.retrieveGameState(this.$route.params.id))
     console.dir(this.$route.params.id)
   },
 

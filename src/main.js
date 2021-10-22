@@ -14,15 +14,15 @@ import LocalAuthRepository from "@/common/accounts/local-auth-repository";
 import App from "./App.vue";
 
 import MatchesService from "@/modules/matches/matches-service";
+import GameService from "@/modules/game/game-service";
 
 Vue.config.productionTip = false;
 
 export let router = configureRouter(Vue);
 
-export let localAuthRepository = new LocalAuthRepository()
-export let matchesService = new MatchesService()
-
-
+export let localAuthRepository = new LocalAuthRepository();
+export let matchesService = new MatchesService();
+export let gamesService = new GameService();
 
 Vue.use(Vuex)
 Vue.use(BootstrapVue)
@@ -34,7 +34,8 @@ new Vue({
   provide() {
     return {
       localAuthRepository,
-      matchesService
+      matchesService,
+      gamesService
     }
   },
   store: new Vuex.Store({

@@ -23,9 +23,9 @@ export default class GameService {
         })
     }
 
-    async retrieveGameState() {
+    async retrieveGameState(id) {
         try {
-            let response = await this.axios.get('/api/game')
+            let response = await this.axios.get(`/api/gamestate/${id}`)
             return response.data
         } catch(e) {
             throw new Error("Unable to get game.")
