@@ -23,5 +23,7 @@ export default {
   color: #2c3e50;
   margin-top: 60px;
   padding:0;
+  background-image: url(/src/assets/herringbone.png);
+  background-repeat: repeat;
 }
 </style>
