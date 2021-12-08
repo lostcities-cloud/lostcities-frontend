@@ -1,26 +1,23 @@
 <template>
-  <div class="game-card" v-bind:style="style">
-    <div class="game-card-back">
-      <span class="card-emoji">&#x1F9ED;</span>
-    </div>
+  <div class="discard-pile" v-bind:style="style">
+    <span class="card-emoji">&#x1F5FA;</span>
   </div>
 </template>
 
 <script>
 
-
 import CardUtils from "@/modules/game/CardUtils";
 
 export default {
-  name: "card-deck",
-  data() {
-    return {
-      rotation: CardUtils.randomCardRotation()
-    }
+  name: "discard",
+  props: {
+    color: String
   },
+
   computed: {
     style() {
       return {
+        backgroundColor: this.getColorCode(),
         transform:`rotate(${this.rotation}deg)`,
         '-webkit-transform':`rotate(${this.rotation}deg)`,
         '-moz-transform':`rotate(${this.rotation}deg)`,
@@ -28,37 +25,37 @@ export default {
       }
     }
   },
+  data() {
+    return {
+      rotation: CardUtils.randomCardRotation(),
+    }
+  },
   methods: {
-
+    getColorCode() {
+      return CardUtils.getMapCode(this.color)
+    }
   }
 }
 
 </script>
 
-<style scoped>
-.game-card {
-  display: inline-block;
-  width:100px;
-  height: 145px;
-  position: relative;
-  top: -10px;
-  background-color: black;
-  margin-left: 10px;
-  border-radius: 5px;
-  box-shadow: 0 1px 5px #000000d6;
-}
+<style>
 
-.game-card-back {
-  margin: 10px 10px;
-  height:124px;
-  background-color: #a66432;
+.discard-pile {
+  width:110px;
+  height:110px;
+  display: inline-block;
+  background-color: #fff;
+  margin:10px;
+  box-shadow: 0 1px 5px #000000d6;
+  text-align: center;
 }
 
 .card-emoji {
-  font-size: 50px;
-  line-height: 125px;
-  height: 125px;
-  width: 80px;
+  font-size: 70px;
+  line-height: 110px;
+  height: 110px;
+  width: 110px;
   display: inline-block;
   background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 100%);
   font-family: apple color emoji,segoe ui emoji,noto color emoji,android emoji,emojisymbols,emojione mozilla,twemoji mozilla,segoe ui symbol;

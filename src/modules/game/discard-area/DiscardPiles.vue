@@ -12,7 +12,7 @@
 
 
 import { mapState } from "vuex";
-import Discard from "@/modules/game/Discard";
+import Discard from "@/modules/game/discard-area/Discard";
 
 export default {
   name: "discard-piles",

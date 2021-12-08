@@ -8,60 +8,55 @@
       <b-button v-on:click="createMatch(true)">Start AI Match</b-button>
     </div>
 
-    <b-container style="margin-top: 50px;">
-      <b-card-group deck class="matches">
+    <b-card-group deck class="matches">
+      <b-container style="margin-top: 50px;">
         <b-row v-for="(match, i) in matches" v-bind:key="i">
-          <b-card class="text-left">
-            <template #header>
-              <h4 class="mb-0">Match {{match.id}}</h4>
-            </template>
-            <b-card-text v-if="match.players.user1">
-              {{match.players.user1}}
-            </b-card-text>
-            <b-card-text v-if="match.players.user2">
-              {{match.players.user2}}
-            </b-card-text>
+          <b-col>
+            <b-card class="text-left" style="margin-bottom:10px;">
+              <template #header>
+                <h4 class="mb-0">Match {{match.id}}</h4>
+              </template>
+              <b-card-text v-if="match.players.user1">
+                <strong>Player 1:</strong> {{match.players.user1}}
+              </b-card-text>
+              <b-card-text v-if="match.players.user2">
+                <strong>Player 2:</strong> {{match.players.user2}}
+              </b-card-text>
 
-            <b-card-text v-if="match.players.user2">
-              {{match.isReady}}
-            </b-card-text>
+              <b-card-text v-if="match.players.user2">
+                <strong>Ready?:</strong> {{match.isReady}}
+              </b-card-text>
 
-            <b-card-text>
-              {{ JSON.stringify(match) }}
-            </b-card-text>
+              <b-button v-if="match.isReady && isMyMatch(match)"
+                  class="game-links"
+                  variant="primary"
+                  :to="{ name: 'game', params: { id: match.id }}"
+              >
+                Play
+              </b-button>
+              <b-button v-if="match.isReady && isMyMatch(match)"
+                  class="game-links"
+                  variant="primary">
+                Resign
+              </b-button>
 
-
-
-            <b-button v-if="match.isReady && isMyMatch(match)"
-                class="game-links"
-                variant="primary"
-                :to="{ name: 'game', params: { id: match.id }}"
-            >
-              Play
-            </b-button>
-            <b-button v-if="match.isReady && isMyMatch(match)"
-                class="game-links"
-                variant="primary">
-              Resign
-            </b-button>
-
-            <b-button v-if="canJoin(match)" v-on:click="join(match.id)"
-                class="game-links"
-                variant="primary"
-            >
-              Join
-            </b-button>
-
-
-          </b-card>
+              <b-button v-if="canJoin(match)" v-on:click="join(match.id)"
+                  class="game-links"
+                  variant="primary"
+              >
+                Join
+              </b-button>
+            </b-card>
+          </b-col>
         </b-row>
-      </b-card-group>
-    </b-container>
+      </b-container>
+    </b-card-group>
+
   </div>
 </template>
 
 <script>
-import {mapActions, mapState} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 export default {
   name: "login",
@@ -78,7 +73,7 @@ export default {
   },
 
   computed: {
-      ...mapState('accounts', ['login'])
+    ...mapGetters('accounts', ['login']),
   },
 
   methods: {
@@ -108,7 +103,36 @@ export default {
     },
 
     async loadMatches() {
-      this.matches = await this.matchesService.getMatches()
+      let matches = await this.matchesService.getMatches()
+
+      console.dir(matches)
+
+      matches = matches.filter((match) => {
+          if(match.players.user1 === this.login && match.players.user2 == null) {
+            return false
+          }
+          return true;
+        })
+        .sort((match1, match2) => {
+          if(match1.isReady === match2.isReady) {
+            return match1.id - match2.id
+          }
+
+          if(match1.isCompleted) {
+            return 1;
+          } else if (match2.isCompleted) {
+            return -1;
+          }
+
+
+          if(match1.isReady && !match2.isReady) {
+            return -1;
+          } else if (!match1.isReady && match2.isReady) {
+            return 1;
+          }
+        })
+
+      this.matches = matches;
     },
 
     isMyMatch(match) {

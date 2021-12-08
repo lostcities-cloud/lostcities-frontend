@@ -33,6 +33,9 @@ function state() {
 const getters = {
     isAuthenticated(state) {
         return state.isAuthenticated;
+    },
+    login(state) {
+        return state.login
     }
 }
 

@@ -2,11 +2,13 @@ import VueRouter from "vue-router";
 
 import ApplicationView from "./common/navigation/ApplicationView";
 import UnauthenticatedView from "./common/navigation/UnauthenticatedView"
+import GameView from "./common/navigation/GameView"
 
 import Register from "./modules/register/Register";
 import Login from "./modules/login/Login";
 import Match from "./modules/matches/Matches";
 import Game from "./modules/game/Game";
+import UiTest from "./modules/ui-test/UiTest"
 
 import LocalAuthRepository from "@/common/accounts/local-auth-repository";
 const localAuthRepository = new LocalAuthRepository();
@@ -16,6 +18,7 @@ export default function configureRouter(vue) {
 
   vue.component('application-view', ApplicationView)
   vue.component('unauthenticated-view', UnauthenticatedView)
+  vue.component('game-vue', GameView)
 
   // 2. Define route components
   const Home = { template: '<div>home</div>' }
@@ -59,11 +62,19 @@ export default function configureRouter(vue) {
         }
       },
       {
+        path: "/test",
+        component: UiTest,
+        meta: {
+          layout : 'application-view',
+          requiresAuth: true
+        }
+      },
+      {
         name: "game",
         path: "/game/:id",
         component: Game,
         meta: {
-          layout : 'application-view',
+          layout : 'game-vue',
           requiresAuth: true
         }
       }
