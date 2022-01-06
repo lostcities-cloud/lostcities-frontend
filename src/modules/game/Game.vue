@@ -144,7 +144,7 @@ export default {
 
 .card-hand {
   position: fixed;
-  bottom: -70px;
+  bottom: -15px;
   text-align: center;
   width: 100%;
   left: 0;

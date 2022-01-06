@@ -1,7 +1,7 @@
 <template>
   <div class="game-card" v-bind:style="style">
     <div class="game-card-back">
-      <b-button v-on:click="draw()">Draw</b-button>
+      <b-button v-on:click="$emit('draw-from-deck')">Draw</b-button>
       <span class="card-emoji">&#x1F9ED;</span>
     </div>
   </div>
@@ -11,7 +11,7 @@
 
 
 import CardUtils from "@/modules/game/CardUtils";
-import * as EVENTS from "events";
+
 
 export default {
   name: "card-deck",
@@ -31,9 +31,6 @@ export default {
     }
   },
   methods: {
-    draw() {
-      this.$emit(EVENTS.DRAW_FROM_DECK)
-    }
   }
 }
 
@@ -73,9 +70,10 @@ export default {
 }
 
 button {
-  opacity: .7;
   z-index: 100;
-  display: block;
+  position: relative;
+  top: 30px;
+  opacity: .7;
 }
 
 </style>

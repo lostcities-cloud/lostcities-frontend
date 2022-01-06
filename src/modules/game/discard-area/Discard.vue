@@ -1,6 +1,6 @@
 <template>
   <div class="discard-pile" v-bind:style="style">
-    <b-button v-on:click="drawFromDiscard()">Draw</b-button>
+    <b-button v-on:click="$emit('discard-from-draw')">Draw</b-button>
     <span class="card-emoji">&#x1F5FA;</span>
   </div>
 </template>
@@ -8,7 +8,6 @@
 <script>
 
 import CardUtils from "@/modules/game/CardUtils";
-import * as EVENTS from "events";
 
 export default {
   name: "discard",
@@ -35,9 +34,6 @@ export default {
   methods: {
     getColorCode() {
       return CardUtils.getMapCode(this.color)
-    },
-    drawFromDiscard() {
-      this.$emit(EVENTS.DRAW_FROM_DISCARD)
     }
   }
 }
@@ -72,7 +68,9 @@ export default {
 
 button {
   z-index: 100;
-  display: block;
+  position: relative;
+  top: 30px;
+  opacity: .7;
 }
 
 </style>
