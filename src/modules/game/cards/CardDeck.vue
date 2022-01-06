@@ -1,6 +1,7 @@
 <template>
   <div class="game-card" v-bind:style="style">
     <div class="game-card-back">
+      <b-button v-on:click="draw()">Draw</b-button>
       <span class="card-emoji">&#x1F9ED;</span>
     </div>
   </div>
@@ -10,6 +11,7 @@
 
 
 import CardUtils from "@/modules/game/CardUtils";
+import * as EVENTS from "events";
 
 export default {
   name: "card-deck",
@@ -29,7 +31,9 @@ export default {
     }
   },
   methods: {
-
+    draw() {
+      this.$emit(EVENTS.DRAW_FROM_DECK)
+    }
   }
 }
 
@@ -63,6 +67,15 @@ export default {
   display: inline-block;
   background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 100%);
   font-family: apple color emoji,segoe ui emoji,noto color emoji,android emoji,emojisymbols,emojione mozilla,twemoji mozilla,segoe ui symbol;
+  position: absolute;
+  top: 10px;
+  left: 10px;
+}
+
+button {
+  opacity: .7;
+  z-index: 100;
+  display: block;
 }
 
 </style>

@@ -10,6 +10,13 @@
       <span style="position: absolute; right: 10px;">{{value}}</span>
     </div>
     <div class="game-card-body" v-bind:style="{ backgroundColor: getColorCode(color) }">
+      <b-button
+          v-for="(option, i) in options"
+          :key="i"
+          v-on:click="optionClick(option, id)"
+      >
+        {{option}}
+      </b-button>
       <span class="card-emoji" v-html="getColorEmoji(color)"></span>
     </div>
   </div>
@@ -17,13 +24,16 @@
 
 <script>
 import CardUtils from "../CardUtils";
+import * as EVENTS from "events";
 
 export default {
   name: "game-card",
   props: {
+    id: String,
     color: String,
     value: Number,
-    isMultiplier: Boolean
+    isMultiplier: Boolean,
+    options: Array
   },
   data() {
     return {
@@ -44,7 +54,13 @@ export default {
     getColorCode(colorName) {
       return CardUtils.getColorCode(colorName)
     },
-
+    optionClick(option, card) {
+      console.log(`Option: ${option}, ${card}`)
+      this.$emit(EVENTS.CARD_OPTION, {
+        optionName: option,
+        card
+      })
+    },
     getColorEmoji(colorName) {
       return CardUtils.getColorEmoji(colorName)
     }
@@ -61,6 +77,7 @@ export default {
   margin-left: 10px;
   border-radius: 5px;
   box-shadow: 0 1px 5px #000000d6;
+  position:relative;
 }
 
 .game-card-header {
@@ -86,6 +103,15 @@ export default {
   display: inline-block;
   background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 100%);
   font-family: apple color emoji,segoe ui emoji,noto color emoji,android emoji,emojisymbols,emojione mozilla,twemoji mozilla,segoe ui symbol;
+  position: absolute;
+  top: 20px;
+  left: 20px;
+}
+
+button {
+  opacity: .7;
+  z-index: 100;
+  display: block;
 }
 
 </style>

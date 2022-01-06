@@ -7,11 +7,21 @@
 
       <div class="game-middle">
         <discard-piles></discard-piles>
-        <card-deck></card-deck>
+        <card-deck v-on:draw-from-deck="drawFromDeck"></card-deck>
       </div>
 
       <div class="card-hand" style="z-index: 10000;">
-        <game-card v-for="(card, i) in game.hand" :key="i" v-bind:color="card.color" v-bind:value="card.value" v-bind:is-multiplier="card.isMultiplier" ></game-card>
+        <game-card
+            v-for="(card) in game.hand"
+            :key="card.id"
+            v-bind:id="card.id"
+            v-bind:color="card.color"
+            v-bind:value="card.value"
+            v-bind:is-multiplier="card.isMultiplier"
+            v-bind:options="['Play', 'Discard']"
+            v-on:card-option="onHandEvent"
+        >
+        </game-card>
       </div>
 
 
@@ -52,7 +62,7 @@ export default {
   ],
 
   async created() {
-    this.game = await this.loadGame(true)
+    this.game = await this.loadGame()
   },
 
   computed: {
@@ -65,7 +75,25 @@ export default {
       this.loaded = true;
 
       return game;
+    },
+    onHandEvent(event) {
+      if(event.optionName === 'Play') {
+        this.play(event.card)
+      } else if(event.optionName === 'Discard') {
+        this.discard(event.card)
+      }
+    },
+    play(card) {
+      console.log(`Play: ${card}`)
+    },
+    discard(card) {
+      console.log(`Discard: ${card}`)
+    },
+
+    drawFromDeck() {
+      console.log(`Draw From Deck`)
     }
+
   }
 }
 </script>
