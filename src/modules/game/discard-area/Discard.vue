@@ -1,6 +1,6 @@
 <template>
   <div class="discard-pile" v-bind:style="style">
-    <b-button v-on:click="$emit('discard-from-draw')">Draw</b-button>
+    <b-button v-on:click="$emit('draw-from-discard')">Draw</b-button>
     <span class="card-emoji">&#x1F5FA;</span>
   </div>
 </template>

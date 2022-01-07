@@ -32,4 +32,13 @@ export default class GameService {
         }
     }
 
+    async playCommand(id, command) {
+        try {
+            let response = await this.axios.patch(`/api/gamestate/${id}`, command)
+            return response.data
+        } catch(e) {
+            throw new Error("Unable to get game.")
+        }
+    }
+
 }

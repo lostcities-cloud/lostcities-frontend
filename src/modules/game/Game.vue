@@ -6,7 +6,7 @@
       </div>
 
       <div class="game-middle">
-        <discard-piles></discard-piles>
+        <discard-piles v-on:draw-from-discard="drawFromDiscard"></discard-piles>
         <card-deck v-on:draw-from-deck="drawFromDeck"></card-deck>
       </div>
 
@@ -19,7 +19,7 @@
             v-bind:value="card.value"
             v-bind:is-multiplier="card.isMultiplier"
             v-bind:options="['Play', 'Discard']"
-            v-on:card-option="onHandEvent"
+            v-on:card-option="handEvent"
         >
         </game-card>
       </div>
@@ -76,27 +76,52 @@ export default {
 
       return game;
     },
-    onHandEvent(event) {
+
+    handEvent(event) {
       if(event.optionName === 'Play') {
         this.play(event.card)
       } else if(event.optionName === 'Discard') {
         this.discard(event.card)
       }
     },
+
     play(card) {
-      console.log(`Play: ${card}`)
+      let command = {type: "PLAY", card}
+      console.log(`Play: ${JSON.stringify(command)}`)
+      this.exec(command)
     },
     discard(card) {
-      console.log(`Discard: ${card}`)
+      let command = {type: "DISCARD", card}
+      console.log(`Discard: ${JSON.stringify(command)}`)
+      this.exec(command)
+    },
+    drawFromDeck() {
+      let command = {type: "DRAW"}
+      console.log(`Draw From Deck: ${JSON.stringify(command)}`)
+      this.exec(command)
+    },
+    drawFromDiscard(color) {
+      let command = {type: "DRAW", color: color}
+      console.log(`Draw From Discard: ${JSON.stringify(command)}`)
+      this.exec(command)
     },
 
-    drawFromDeck() {
-      console.log(`Draw From Deck`)
+    exec(command) {
+      return this.gamesService.playCommand(this.$route.params.id, command)
     }
-
   }
 }
 </script>
+<!--
+Events
+
+Play: {type: "play", card: "${card}"}
+Discard: {type: "discard", card: "${card}"}
+
+Draw From Deck: {type: "draw"}
+Draw From Deck: {type: "draw", color: "YELLOW"}
+
+-->
 
 <style scoped>
 

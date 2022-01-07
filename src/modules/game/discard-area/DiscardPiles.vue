@@ -1,10 +1,26 @@
 <template>
   <div class="discard-piles" >
-    <discard v-bind:color="`YELLOW`"></discard>
-    <discard v-bind:color="`BLUE`"></discard>
-    <discard v-bind:color="`WHITE`"></discard>
-    <discard v-bind:color="`GREEN`"></discard>
-    <discard v-bind:color="`RED`"></discard>
+
+    <discard
+        v-bind:color="`YELLOW`"
+        v-on:draw-from-discard="$emit('draw-from-discard', `YELLOW`)">
+    </discard>
+    <discard
+        v-bind:color="`BLUE`"
+        v-on:draw-from-discard="$emit('draw-from-discard', `BLUE`)">
+    </discard>
+    <discard
+        v-bind:color="`WHITE`"
+        v-on:draw-from-discard="$emit('draw-from-discard', `WHITE`)">
+    </discard>
+    <discard
+        v-bind:color="`GREEN`"
+        v-on:draw-from-discard="$emit('draw-from-discard', `GREEN`)">
+    </discard>
+    <discard
+        v-bind:color="`RED`"
+        v-on:draw-from-discard="$emit('draw-from-discard', `RED`)">
+    </discard>
   </div>
 </template>
 
@@ -25,7 +41,7 @@ export default {
   ],
 
   async created() {
-    this.game = await this.loadGame(true)
+
   },
 
   computed: {
