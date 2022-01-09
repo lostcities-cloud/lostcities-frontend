@@ -82,7 +82,6 @@ export default function configureRouter(vue) {
   });
 
   router.beforeEach((to, from, next) => {
-    console.dir(to.meta)
     if (to.meta.requiresAuth && !localAuthRepository.isAuthenticated()) {
       next({ name: 'Login' })  
     } else {

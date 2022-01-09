@@ -1,7 +1,7 @@
 <template>
   <div class="game-card" v-bind:style="style">
     <div class="game-card-back">
-      <b-button v-on:click="$emit('draw-from-deck')">Draw</b-button>
+      <b-button v-if="canDraw" v-on:click="$emit('draw-from-deck')">Draw</b-button>
       <span class="card-emoji">&#x1F9ED;</span>
     </div>
   </div>
@@ -11,6 +11,7 @@
 
 
 import CardUtils from "@/modules/game/CardUtils";
+import {mapGetters} from "vuex";
 
 
 export default {
@@ -21,12 +22,15 @@ export default {
     }
   },
   computed: {
+    ...mapGetters('gameInfo', ['canDraw']),
     style() {
       return {
         transform:`rotate(${this.rotation}deg)`,
         '-webkit-transform':`rotate(${this.rotation}deg)`,
         '-moz-transform':`rotate(${this.rotation}deg)`,
-        '-ms-transform':`rotate(${this.rotation}deg)`
+        '-ms-transform':`rotate(${this.rotation}deg)`,
+        verticalAlign: 'bottom',
+        marginBottom: '5px'
       }
     }
   },

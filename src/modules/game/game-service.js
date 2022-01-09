@@ -1,5 +1,7 @@
 import axios from 'axios';
-import {localAuthRepository} from "@/main";
+import {store, localAuthRepository } from "@/main";
+
+
 
 export default class GameService {
     constructor() {
@@ -25,7 +27,12 @@ export default class GameService {
 
     async retrieveGameState(id) {
         try {
+            await store._actions["gameInfo/startLoading"][0]()
             let response = await this.axios.get(`/api/gamestate/${id}`)
+            this.store = store;
+            await store._actions["gameInfo/mergeGame"][0](response.data)
+            await store._actions["gameInfo/doneLoading"][0]()
+
             return response.data
         } catch(e) {
             throw new Error("Unable to get game.")
@@ -34,7 +41,10 @@ export default class GameService {
 
     async playCommand(id, command) {
         try {
+            await store._actions["gameInfo/startLoading"][0]()
             let response = await this.axios.patch(`/api/gamestate/${id}`, command)
+            await store._actions["gameInfo/mergeGame"][0](response.data)
+            await store._actions["gameInfo/doneLoading"][0]()
             return response.data
         } catch(e) {
             throw new Error("Unable to get game.")

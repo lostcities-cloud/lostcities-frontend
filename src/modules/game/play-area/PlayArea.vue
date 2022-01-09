@@ -4,7 +4,7 @@
     <div class="play-area d-flex justify-content-between">
       <div class="play-area-yellow">
         <div class="top-play-area" v-bind:style="{height:opponentColorStackHeightByColor('YELLOW')}">
-          <game-card v-for="(card, i) in opponentPlayedCardsByColor('YELLOW')" v-bind:key="i"
+          <game-card v-for="(card, i) in opponentCardsYellow" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
                      v-bind:value="card.value"
@@ -15,7 +15,7 @@
 
         </div>
         <div class="bottom-play-area" v-bind:style="{height:playerColorStackHeightByColor('YELLOW')}">
-          <game-card v-for="(card, i) in playerPlayedCardsByColor('YELLOW')" v-bind:key="i"
+          <game-card v-for="(card, i) in playerCardsYellow" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
                      v-bind:value="card.value"
@@ -28,7 +28,7 @@
       </div>
       <div class="play-area-blue">
         <div class="top-play-area" v-bind:style="{height:opponentColorStackHeightByColor('BLUE')}">
-          <game-card v-for="(card, i) in opponentPlayedCardsByColor('BLUE')" v-bind:key="i"
+          <game-card v-for="(card, i) in opponentCardsBlue" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
                      v-bind:value="card.value"
@@ -38,7 +38,7 @@
           </game-card>
         </div>
         <div class="bottom-play-area" v-bind:style="{height:playerColorStackHeightByColor('BLUE')}">
-          <game-card v-for="(card, i) in playerPlayedCardsByColor('BLUE')" v-bind:key="i"
+          <game-card v-for="(card, i) in playerCardsBlue" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
                      v-bind:value="card.value"
@@ -50,7 +50,7 @@
       </div>
       <div class="play-area-white">
         <div class="top-play-area" v-bind:style="{height:opponentColorStackHeightByColor('WHITE')}">
-          <game-card v-for="(card, i) in opponentPlayedCardsByColor('WHITE')" v-bind:key="i"
+          <game-card v-for="(card, i) in opponentCardsWhite" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
                      v-bind:value="card.value"
@@ -60,7 +60,7 @@
           </game-card>
         </div>
         <div class="bottom-play-area" v-bind:style="{height:playerColorStackHeightByColor('WHITE')}">
-          <game-card v-for="(card, i) in playerPlayedCardsByColor('WHITE')" v-bind:key="i"
+          <game-card v-for="(card, i) in playerCardsWhite" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
                      v-bind:value="card.value"
@@ -72,7 +72,7 @@
       </div>
       <div class="play-area-green">
         <div class="top-play-area" v-bind:style="{height:opponentColorStackHeightByColor('GREEN')}">
-          <game-card v-for="(card, i) in opponentPlayedCardsByColor('GREEN')" v-bind:key="i"
+          <game-card v-for="(card, i) in opponentCardsGreen" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
                      v-bind:value="card.value"
@@ -82,7 +82,7 @@
           </game-card>
         </div>
         <div class="bottom-play-area" v-bind:style="{height:playerColorStackHeightByColor('GREEN')}">
-          <game-card v-for="(card, i) in playerPlayedCardsByColor('GREEN')" v-bind:key="i"
+          <game-card v-for="(card, i) in playerCardsGreen" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
                      v-bind:value="card.value"
@@ -94,7 +94,7 @@
       </div>
       <div class="play-area-red">
         <div class="top-play-area" v-bind:style="{height:opponentColorStackHeightByColor('RED')}">
-          <game-card v-for="(card, i) in opponentPlayedCardsByColor('RED')" v-bind:key="i"
+          <game-card v-for="(card, i) in opponentCardsRed" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
                      v-bind:value="card.value"
@@ -104,7 +104,7 @@
           </game-card>
         </div>
         <div class="bottom-play-area" v-bind:style="{height:playerColorStackHeightByColor('RED')}">
-          <game-card v-for="(card, i) in playerPlayedCardsByColor('RED')" v-bind:key="i"
+          <game-card v-for="(card, i) in playerCardsRed" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
                      v-bind:value="card.value"
@@ -121,112 +121,47 @@
 
 <script>
 import GameCard from "@/modules/game/cards/GameCard";
-import {mapState} from "vuex";
+import {mapGetters, mapState} from "vuex";
 
 export default {
   name: "play-area",
   components: {
     "game-card": GameCard
   },
-  data() {
-    return {
-      playArea: {
-        dnelson: {
-          YELLOW: [
-            {color: "YELLOW", value: 10, isMultiplier: false},
-            {color: "YELLOW", value: 9, isMultiplier: false},
-            {color: "YELLOW", value: 8, isMultiplier: false},
-            {color: "YELLOW", value: 7, isMultiplier: false},
-            {color: "YELLOW", value: 6, isMultiplier: false},
-            {color: "YELLOW", value: 5, isMultiplier: false},
-            {color: "YELLOW", value: 4, isMultiplier: false},
-            {color: "YELLOW", value: 3, isMultiplier: false},
-            {color: "YELLOW", value: 2, isMultiplier: false},
-            {color: "YELLOW", value: 1, isMultiplier: false},
-            {color: "YELLOW", value: 0, isMultiplier: true},
-            {color: "YELLOW", value: 0, isMultiplier: true},
-          ],
-          BLUE: [
-            {color: "BLUE", value: 10, isMultiplier: false},
-            {color: "BLUE", value: 9, isMultiplier: false},
-            {color: "BLUE", value: 8, isMultiplier: false},
-            {color: "BLUE", value: 7, isMultiplier: false},
-            {color: "BLUE", value: 6, isMultiplier: false},
-            {color: "BLUE", value: 5, isMultiplier: false},
-          ],
-          WHITE: [
-            {color: "WHITE", value: 10, isMultiplier: false},
-            {color: "WHITE", value: 9, isMultiplier: false},
-            {color: "WHITE", value: 8, isMultiplier: false},
-            {color: "WHITE", value: 7, isMultiplier: false},
-            {color: "WHITE", value: 6, isMultiplier: false},
-            {color: "WHITE", value: 5, isMultiplier: false},
-          ],
-          GREEN: [
-            {color: "GREEN", value: 10, isMultiplier: false},
-            {color: "GREEN", value: 9, isMultiplier: false},
-            {color: "GREEN", value: 8, isMultiplier: false},
-          ],
-          RED: [
-            {color: "RED", value: 10, isMultiplier: false},
-            {color: "RED", value: 9, isMultiplier: false},
-            {color: "RED", value: 8, isMultiplier: false},
-            {color: "RED", value: 7, isMultiplier: false},
-            {color: "RED", value: 6, isMultiplier: false},
-            {color: "RED", value: 5, isMultiplier: false},
-            {color: "RED", value: 4, isMultiplier: false},
-            {color: "RED", value: 3, isMultiplier: false},
-            {color: "RED", value: 2, isMultiplier: false},
-            {color: "RED", value: 1, isMultiplier: false},
-            {color: "RED", value: 0, isMultiplier: true},
 
-          ]
-        },
-        ttesterson: {
-          YELLOW: [],
-          BLUE: [
-            {color: "BLUE", value: 4, isMultiplier: false},
-            {color: "BLUE", value: 3, isMultiplier: false},
-            {color: "BLUE", value: 2, isMultiplier: false},
-            {color: "BLUE", value: 1, isMultiplier: false},
-            {color: "BLUE", value: 0, isMultiplier: true},
-            {color: "BLUE", value: 0, isMultiplier: true},
-          ],
-          WHITE: [
-            {color: "WHITE", value: 4, isMultiplier: false},
-            {color: "WHITE", value: 3, isMultiplier: false},
-            {color: "WHITE", value: 2, isMultiplier: false},
-            {color: "WHITE", value: 1, isMultiplier: false},
-            {color: "WHITE", value: 0, isMultiplier: true},
-            {color: "WHITE", value: 0, isMultiplier: true},
-          ],
-          GREEN: [
-            {color: "GREEN", value: 7, isMultiplier: false},
-            {color: "GREEN", value: 6, isMultiplier: false},
-            {color: "GREEN", value: 5, isMultiplier: false},
-            {color: "GREEN", value: 4, isMultiplier: false},
-            {color: "GREEN", value: 3, isMultiplier: false},
-            {color: "GREEN", value: 2, isMultiplier: false},
-            {color: "GREEN", value: 1, isMultiplier: false},
-            {color: "GREEN", value: 0, isMultiplier: true},
-            {color: "GREEN", value: 0, isMultiplier: true},
-          ],
-          RED: [
-            {color: "RED", value: 0, isMultiplier: true},
-          ]
-        }
-      }
-    }
-  },
   computed: {
-    playerLogin()  {
-      return this.login
+    playerCardsYellow () {
+      return [...this.playAreas[this.playerName].board['YELLOW']]
     },
-    opponentLogin()  {
-      return Object.keys(this.playArea)
-          .filter((key) => key !== this.login)[0]
+    playerCardsBlue() {
+      return [...this.playAreas[this.playerName].board['BLUE']]
     },
-    ...mapState('accounts', ['login'])
+    playerCardsWhite() {
+      return [...this.playAreas[this.playerName].board['WHITE']]
+    },
+    playerCardsGreen() {
+      return [...this.playAreas[this.playerName].board['GREEN']]
+    },
+    playerCardsRed() {
+      return [...this.playAreas[this.playerName].board['RED']]
+    },
+    opponentCardsYellow () {
+      return [...this.playAreas[this.opponentName].board['YELLOW']].reverse()
+    },
+    opponentCardsBlue() {
+      return [...this.playAreas[this.opponentName].board['BLUE']].reverse()
+    },
+    opponentCardsWhite() {
+      return [...this.playAreas[this.opponentName].board['WHITE']].reverse()
+    },
+    opponentCardsGreen() {
+      return [...this.playAreas[this.opponentName].board['GREEN']].reverse()
+    },
+    opponentCardsRed() {
+      return [...this.playAreas[this.opponentName].board['RED']].reverse()
+    },
+    ...mapState('accounts', ['login']),
+    ...mapGetters('gameInfo', ['playAreas', 'loading', 'playerName', 'opponentName']),
   },
   methods: {
     topByPosition(pos) {
@@ -237,17 +172,11 @@ export default {
     zIndexByPosition(pos) {
       return 100 + (pos * 20)
     },
-    playerPlayedCardsByColor(color) {
-      return this.playArea[this.playerLogin][color]
-    },
-    opponentPlayedCardsByColor(color) {
-      return this.playArea[this.opponentLogin][color]
-    },
     playerColorStackHeightByColor(color) {
-      return (this.playerPlayedCardsByColor(color).length * 30 + 20).toString() + "px"
+      return (this.playAreas[this.playerName].board[color].length * 30 + 20).toString() + "px"
     },
     opponentColorStackHeightByColor(color) {
-      return (this.opponentPlayedCardsByColor(color).length * 30 + 20).toString() + "px"
+      return (this.playAreas[this.opponentName].board[color].length * 30 + 20).toString() + "px"
     }
   }
 }
@@ -261,6 +190,11 @@ export default {
   height: 430px;
   width: 130px;
   display: inline-block;
+  margin-top: 20px;
+}
+
+.top-play-area, .bottom-play-area {
+
 }
 
 .play-area .game-card {

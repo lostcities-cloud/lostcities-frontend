@@ -69,6 +69,7 @@ const actions = {
     async login({commit}, request) {
         try {
             const loginResponse = await accountsService.login(request.loginForm)
+
             commit('loginMutation', loginResponse)
             Vue.notify({
                 text: 'Successful login!',

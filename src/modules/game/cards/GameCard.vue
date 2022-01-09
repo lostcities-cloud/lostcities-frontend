@@ -11,8 +11,9 @@
     </div>
     <div class="game-card-body" v-bind:style="{ backgroundColor: getColorCode(color) }">
       <b-button
-          v-for="(optionName, i) in options"
+          class="card-options" v-for="(optionName, i) in options"
           :key="i"
+          v-bind:style="{display: cardOptionsDisplay()}"
           v-on:click="$emit('card-option', {optionName, card: id})"
       >
         {{optionName}}
@@ -24,6 +25,7 @@
 
 <script>
 import CardUtils from "../CardUtils";
+import {mapGetters} from "vuex";
 
 export default {
   name: "game-card",
@@ -47,9 +49,13 @@ export default {
         '-moz-transform':`rotate(${this.rotation}deg)`,
         '-ms-transform':`rotate(${this.rotation}deg)`
       }
-    }
+    },
+    ...mapGetters('gameInfo', ['canPlayOrDiscard'])
   },
   methods: {
+    cardOptionsDisplay() {
+      return this.canPlayOrDiscard ? 'block': 'none'
+    },
     getColorCode(colorName) {
       return CardUtils.getColorCode(colorName)
     },

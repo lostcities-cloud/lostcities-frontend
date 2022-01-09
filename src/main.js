@@ -8,28 +8,30 @@ import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import Notifications from 'vue-notification'
 
-import accountsStore from "@/common/accounts/accounts-store";
-import matchesStore from "@/modules/matches/matches-store";
 import LocalAuthRepository from "@/common/accounts/local-auth-repository";
 import App from "./App.vue";
+
+import { default as storeRoot } from "@/store"
 
 import MatchesService from "@/modules/matches/matches-service";
 import GameService from "@/modules/game/game-service";
 
 Vue.config.productionTip = false;
 
-export let router = configureRouter(Vue);
+Vue.use(BootstrapVue)
+Vue.use(IconsPlugin)
+Vue.use(Notifications)
+Vue.use(Vuex)
 
 export let localAuthRepository = new LocalAuthRepository();
 export let matchesService = new MatchesService();
 export let gamesService = new GameService();
 
-Vue.use(Vuex)
-Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
-Vue.use(Notifications)
 
-new Vue({
+export let store = new Vuex.Store(storeRoot)
+export let router = configureRouter(Vue);
+
+export default new Vue({
   router,
   provide() {
     return {
@@ -38,13 +40,6 @@ new Vue({
       gamesService
     }
   },
-  store: new Vuex.Store({
-
-
-    modules: {
-      matches: matchesStore,
-      accounts: accountsStore
-    }
-  }),
+  store,
   render: (h) => h(App)
 }).$mount("#app");

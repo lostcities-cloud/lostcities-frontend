@@ -1,6 +1,8 @@
 <template>
   <div class="game-view">
-    <div style="display: block;" v-if="loaded" >
+
+
+    <div style="display: block;" >
       <div class="game-board" >
         <play-area></play-area>
       </div>
@@ -12,7 +14,7 @@
 
       <div class="card-hand" style="z-index: 10000;">
         <game-card
-            v-for="(card) in game.hand"
+            v-for="(card) in hand"
             :key="card.id"
             v-bind:id="card.id"
             v-bind:color="card.color"
@@ -32,11 +34,12 @@
 
 <script>
 
-import { mapState } from "vuex";
+import {mapActions, mapGetters, mapState} from "vuex";
 import GameCard from "@/modules/game/cards/GameCard";
 import CardDeck from "@/modules/game/cards/CardDeck";
 import DiscardPiles from "@/modules/game/discard-area/DiscardPiles";
 import PlayArea from "@/modules/game/play-area/PlayArea";
+
 
 export default {
   name: "game",
@@ -44,7 +47,7 @@ export default {
     PlayArea,
     "game-card": GameCard,
     "card-deck": CardDeck,
-    "discard-piles": DiscardPiles
+    "discard-piles": DiscardPiles,
   } ,
   data() {
     return {
@@ -66,15 +69,15 @@ export default {
   },
 
   computed: {
-    ...mapState('accounts', ['login'])
+    ...mapState('accounts', ['login']),
+    ...mapGetters('gameInfo', [
+      'hand'
+    ]),
+
   },
   methods: {
     async loadGame() {
-      this.loaded = false;
-      let game = await this.gamesService.retrieveGameState(this.$route.params.id)
-      this.loaded = true;
-
-      return game;
+      await this.gamesService.retrieveGameState(this.$route.params.id)
     },
 
     handEvent(event) {
@@ -88,27 +91,33 @@ export default {
     play(card) {
       let command = {type: "PLAY", card}
       console.log(`Play: ${JSON.stringify(command)}`)
-      this.exec(command)
+      //this.exec(command)
+      this.playCommand(command)
     },
     discard(card) {
       let command = {type: "DISCARD", card}
       console.log(`Discard: ${JSON.stringify(command)}`)
-      this.exec(command)
+      //this.exec(command)
+      this.discardCommand(command)
     },
     drawFromDeck() {
       let command = {type: "DRAW"}
       console.log(`Draw From Deck: ${JSON.stringify(command)}`)
-      this.exec(command)
+      //this.exec(command)
+      this.drawCommand(command)
     },
     drawFromDiscard(color) {
       let command = {type: "DRAW", color: color}
       console.log(`Draw From Discard: ${JSON.stringify(command)}`)
-      this.exec(command)
+      //this.exec(command)
+      this.drawCommand(command)
     },
 
-    exec(command) {
-      return this.gamesService.playCommand(this.$route.params.id, command)
-    }
+    ...mapActions('gameInfo', [
+      'playCommand',
+      'discardCommand',
+      'drawCommand'
+    ])
   }
 }
 </script>
@@ -169,10 +178,15 @@ Draw From Deck: {type: "draw", color: "YELLOW"}
 
 .card-hand {
   position: fixed;
-  bottom: -15px;
+  bottom: -50px;
   text-align: center;
   width: 100%;
   left: 0;
+  margin-left: -150px;
+}
+
+.card-hand > * {
+  vertical-align: top;
 }
 
 .card-hand div.game-card:hover {

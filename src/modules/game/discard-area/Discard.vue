@@ -1,6 +1,6 @@
 <template>
   <div class="discard-pile" v-bind:style="style">
-    <b-button v-on:click="$emit('draw-from-discard')">Draw</b-button>
+    <b-button v-if="canDraw" v-on:click="$emit('draw-from-discard')">Draw</b-button>
     <span class="card-emoji">&#x1F5FA;</span>
   </div>
 </template>
@@ -8,6 +8,7 @@
 <script>
 
 import CardUtils from "@/modules/game/CardUtils";
+import {mapGetters} from "vuex";
 
 export default {
   name: "discard",
@@ -16,6 +17,7 @@ export default {
   },
 
   computed: {
+    ...mapGetters('gameInfo', ['canDraw']),
     style() {
       return {
         backgroundColor: this.getColorCode(),
