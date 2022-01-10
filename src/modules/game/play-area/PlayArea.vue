@@ -3,7 +3,7 @@
 
     <div class="play-area d-flex justify-content-between">
       <div class="play-area-yellow">
-        <div class="top-play-area" v-bind:style="{height:opponentColorStackHeightByColor('YELLOW')}">
+        <div class="top-play-area">
           <game-card v-for="(card, i) in opponentCardsYellow" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
@@ -14,7 +14,7 @@
           </game-card>
 
         </div>
-        <div class="bottom-play-area" v-bind:style="{height:playerColorStackHeightByColor('YELLOW')}">
+        <div class="bottom-play-area" v-bind:style="{marginBottom: bottomMargin(playerCardsYellow.length)}">
           <game-card v-for="(card, i) in playerCardsYellow" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
@@ -27,7 +27,7 @@
         </div>
       </div>
       <div class="play-area-blue">
-        <div class="top-play-area" v-bind:style="{height:opponentColorStackHeightByColor('BLUE')}">
+        <div class="top-play-area">
           <game-card v-for="(card, i) in opponentCardsBlue" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
@@ -37,7 +37,7 @@
 
           </game-card>
         </div>
-        <div class="bottom-play-area" v-bind:style="{height:playerColorStackHeightByColor('BLUE')}">
+        <div class="bottom-play-area" v-bind:style="{marginBottom: bottomMargin(playerCardsBlue.length)}">
           <game-card v-for="(card, i) in playerCardsBlue" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
@@ -49,7 +49,7 @@
         </div>
       </div>
       <div class="play-area-white">
-        <div class="top-play-area" v-bind:style="{height:opponentColorStackHeightByColor('WHITE')}">
+        <div class="top-play-area">
           <game-card v-for="(card, i) in opponentCardsWhite" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
@@ -59,7 +59,7 @@
 
           </game-card>
         </div>
-        <div class="bottom-play-area" v-bind:style="{height:playerColorStackHeightByColor('WHITE')}">
+        <div class="bottom-play-area" v-bind:style="{marginBottom: bottomMargin(playerCardsWhite.length)}">
           <game-card v-for="(card, i) in playerCardsWhite" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
@@ -71,7 +71,7 @@
         </div>
       </div>
       <div class="play-area-green">
-        <div class="top-play-area" v-bind:style="{height:opponentColorStackHeightByColor('GREEN')}">
+        <div class="top-play-area">
           <game-card v-for="(card, i) in opponentCardsGreen" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
@@ -81,7 +81,7 @@
 
           </game-card>
         </div>
-        <div class="bottom-play-area" v-bind:style="{height:playerColorStackHeightByColor('GREEN')}">
+        <div class="bottom-play-area" v-bind:style="{marginBottom: bottomMargin(playerCardsGreen.length)}">
           <game-card v-for="(card, i) in playerCardsGreen" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
@@ -93,7 +93,7 @@
         </div>
       </div>
       <div class="play-area-red">
-        <div class="top-play-area" v-bind:style="{height:opponentColorStackHeightByColor('RED')}">
+        <div class="top-play-area">
           <game-card v-for="(card, i) in opponentCardsRed" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
@@ -103,7 +103,7 @@
 
           </game-card>
         </div>
-        <div class="bottom-play-area" v-bind:style="{height:playerColorStackHeightByColor('RED')}">
+        <div class="bottom-play-area" v-bind:style="{marginBottom: bottomMargin(playerCardsRed.length)}">
           <game-card v-for="(card, i) in playerCardsRed" v-bind:key="i"
                      d-block
                      v-bind:color="card.color"
@@ -161,7 +161,12 @@ export default {
       return [...this.playAreas[this.opponentName].board['RED']].reverse()
     },
     ...mapState('accounts', ['login']),
-    ...mapGetters('gameInfo', ['playAreas', 'loading', 'playerName', 'opponentName']),
+    ...mapGetters('gameInfo', [
+        'playAreas',
+      'loading',
+      'playerName',
+      'opponentName',
+    ]),
   },
   methods: {
     topByPosition(pos) {
@@ -172,6 +177,14 @@ export default {
     zIndexByPosition(pos) {
       return 100 + (pos * 20)
     },
+    bottomMargin(length) {
+      if(length > 1) {
+        return (-22 * Math.max((length -2), -1)).toString() + "px";
+      } else {
+        return "0px"
+      }
+    },
+
     playerColorStackHeightByColor(color) {
       return (this.playAreas[this.playerName].board[color].length * 30 + 20).toString() + "px"
     },
@@ -187,18 +200,27 @@ export default {
 
 
 .play-area-yellow, .play-area-blue, .play-area-white, .play-area-green, .play-area-red {
-  height: 430px;
+  height: 460px;
   width: 130px;
   display: inline-block;
   margin-top: 20px;
+  position: relative;
 }
 
 .top-play-area, .bottom-play-area {
 
 }
 
-.play-area .game-card {
-  display: block
+.bottom-play-area {
+  position: absolute;
+  bottom: 0;
+  display:flex;
+  flex-direction: column;
+}
+
+.bottom-play-area .game-card {
+  display: inline-block;
+  align-self: flex-end;
 }
 </style>
 

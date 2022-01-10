@@ -31,14 +31,6 @@
 
     </div>
 
-    <div class="game-logs">
-      <h3>Logs</h3>
-
-      <div v-for="(log, i) in logs" :key="i" class="log">
-        <strong>{{log.player}}</strong>: {{log.message}}
-      </div>
-    </div>
-
   </div>
 </template>
 
@@ -82,7 +74,6 @@ export default {
     },
     sendCommandTurn() {
       this.gamesService.playCommand(this.$route.params.id, this.turnCommands)
-      console.dir(this.turnCommands)
     },
     ...mapActions('gameInfo', [
         'undo'
@@ -94,7 +85,7 @@ export default {
 
 <style scoped>
 .game-info-view {
-  height: 500px;
+  height: 485px;
   min-width: 200px;
   background-color: #ececec;;
   padding: 1em;

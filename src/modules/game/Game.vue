@@ -14,7 +14,7 @@
 
       <div class="card-hand" style="z-index: 10000;">
         <game-card
-            v-for="(card) in hand"
+            v-for="(card) in sortedHand()"
             :key="card.id"
             v-bind:id="card.id"
             v-bind:color="card.color"
@@ -111,6 +111,32 @@ export default {
       console.log(`Draw From Discard: ${JSON.stringify(command)}`)
       //this.exec(command)
       this.drawCommand(command)
+    },
+
+
+    sortedHand() {
+      let handByColor = this.hand.reduce((memo, card) => {
+        // eslint-disable-next-line no-prototype-builtins
+        if(!memo.hasOwnProperty(card.color)) {
+          memo[card.color] = [card]
+        } else {
+          memo[card.color].push(card)
+        }
+
+        return memo;
+      }, {})
+
+      Object.values(handByColor).forEach( list => {
+        list.sort((a, b) => a.value - b.value)
+      })
+
+      return [
+        handByColor['YELLOW'],
+        handByColor['BLUE'],
+        handByColor['WHITE'],
+        handByColor['GREEN'],
+        handByColor['RED'],
+      ].filter(x=> !!x).reduce((a, b) => a.concat(b), [])
     },
 
     ...mapActions('gameInfo', [

@@ -1,5 +1,10 @@
 <template>
-  <div class="game-card" v-bind:style="style">
+  <div
+      class="game-card"
+      v-bind:style="style"
+       v-b-tooltip
+      v-bind:title="`Remaining: ${deckRemaining}`"
+  >
     <div class="game-card-back">
       <b-button v-if="canDraw" v-on:click="$emit('draw-from-deck')">Draw</b-button>
       <span class="card-emoji">&#x1F9ED;</span>
@@ -22,7 +27,10 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('gameInfo', ['canDraw']),
+    ...mapGetters('gameInfo', [
+      'canDraw',
+      'deckRemaining'
+    ]),
     style() {
       return {
         transform:`rotate(${this.rotation}deg)`,
