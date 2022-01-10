@@ -45,7 +45,7 @@ export default {
 <style>
 
 .discard-pile {
-  width:110px;
+  width:119px;
   height:110px;
   display: inline-block;
   background-color: #fff;
@@ -59,7 +59,7 @@ export default {
   font-size: 70px;
   line-height: 110px;
   height: 110px;
-  width: 110px;
+  width: 120px;
   display: inline-block;
   background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 100%);
   font-family: apple color emoji,segoe ui emoji,noto color emoji,android emoji,emojisymbols,emojione mozilla,twemoji mozilla,segoe ui symbol;

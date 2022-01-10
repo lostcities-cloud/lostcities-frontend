@@ -9,7 +9,6 @@
 
       <div class="game-middle">
         <discard-piles v-on:draw-from-discard="drawFromDiscard"></discard-piles>
-        <card-deck v-on:draw-from-deck="drawFromDeck"></card-deck>
       </div>
 
       <div class="card-hand" style="z-index: 10000;">
@@ -100,19 +99,12 @@ export default {
       //this.exec(command)
       this.discardCommand(command)
     },
-    drawFromDeck() {
-      let command = {type: "DRAW"}
-      console.log(`Draw From Deck: ${JSON.stringify(command)}`)
-      //this.exec(command)
-      this.drawCommand(command)
-    },
     drawFromDiscard(color) {
       let command = {type: "DRAW", color: color}
       console.log(`Draw From Discard: ${JSON.stringify(command)}`)
       //this.exec(command)
       this.drawCommand(command)
     },
-
 
     sortedHand() {
       let handByColor = this.hand.reduce((memo, card) => {
@@ -162,26 +154,12 @@ Draw From Deck: {type: "draw", color: "YELLOW"}
 
 .game-board {
   margin-left:15px;
-  width: 655px;
-}
-
-.play-area-yellow, .play-area-blue, .play-area-white, .play-area-green, .play-area-red {
-  height: 430px;
-  width: 130px;
-  display: inline-block;
-}
-
-
-.top-play-area {
+  width: 700px;
 }
 
 .play-area-bottom .play-area {
   position:absolute;
   bottom: 0;
-}
-
-.play-area {
-
 }
 
 .play-area .game-card {

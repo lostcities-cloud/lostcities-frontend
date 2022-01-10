@@ -6,7 +6,7 @@
       v-bind:title="`Remaining: ${deckRemaining}`"
   >
     <div class="game-card-back">
-      <b-button v-if="canDraw" v-on:click="$emit('draw-from-deck')">Draw</b-button>
+      <b-button v-if="canDraw" v-on:click="drawFromDeck">Draw</b-button>
       <span class="card-emoji">&#x1F9ED;</span>
     </div>
   </div>
@@ -16,7 +16,7 @@
 
 
 import CardUtils from "@/modules/game/CardUtils";
-import {mapGetters} from "vuex";
+import {mapActions, mapGetters} from "vuex";
 
 
 export default {
@@ -43,6 +43,15 @@ export default {
     }
   },
   methods: {
+    drawFromDeck() {
+      let command = {type: "DRAW"}
+      console.log(`Draw From Deck: ${JSON.stringify(command)}`)
+      //this.exec(command)
+      this.drawCommand(command)
+    },
+    ...mapActions('gameInfo', [
+      'drawCommand'
+    ])
   }
 }
 
@@ -56,7 +65,7 @@ export default {
   position: relative;
   top: -10px;
   background-color: black;
-  margin-left: 10px;
+  margin:20px 10px;
   border-radius: 5px;
   box-shadow: 0 1px 5px #000000d6;
   text-align:center;
