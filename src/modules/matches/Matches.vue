@@ -107,30 +107,7 @@ export default {
 
       console.dir(matches)
 
-      matches = matches.filter((match) => {
-          if(match.players.user1 === this.login && match.players.user2 == null) {
-            return false
-          }
-          return true;
-        })
-        .sort((match1, match2) => {
-          if(match1.isReady === match2.isReady) {
-            return match1.id - match2.id
-          }
 
-          if(match1.isCompleted) {
-            return 1;
-          } else if (match2.isCompleted) {
-            return -1;
-          }
-
-
-          if(match1.isReady && !match2.isReady) {
-            return -1;
-          } else if (!match1.isReady && match2.isReady) {
-            return 1;
-          }
-        })
 
       this.matches = matches;
     },

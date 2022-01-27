@@ -85,7 +85,7 @@ const getters = {
         return state.gameState.playAreas[getters.opponentName(state)].board
     },
     discard(state) {
-        return state.discard.board
+        return state.gameState.discard.board
     },
     turnCommands(state) {
         return state.turnCommands

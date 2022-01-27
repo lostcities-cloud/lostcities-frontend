@@ -1,6 +1,16 @@
 <template>
   <div class="discard-pile" v-bind:style="style">
+
     <b-button v-if="canDraw" v-on:click="$emit('draw-from-discard')">Draw</b-button>
+    <game-card v-if="canDraw"
+               v-bind:id="card.id"
+               v-bind:color="card.color"
+               v-bind:value="card.value"
+               v-bind:is-multiplier="card.isMultiplier"
+               v-bind:options="['Discard']">
+
+    </game-card>
+
     <span class="card-emoji">&#x1F5FA;</span>
   </div>
 </template>
@@ -15,9 +25,13 @@ export default {
   props: {
     color: String
   },
-
+  data() {
+    return {
+      rotation: CardUtils.randomCardRotation(),
+    }
+  },
   computed: {
-    ...mapGetters('gameInfo', ['canDraw']),
+    ...mapGetters('gameInfo', ['discard']),
     style() {
       return {
         backgroundColor: this.getColorCode(),
@@ -26,11 +40,12 @@ export default {
         '-moz-transform':`rotate(${this.rotation}deg)`,
         '-ms-transform':`rotate(${this.rotation}deg)`
       }
-    }
-  },
-  data() {
-    return {
-      rotation: CardUtils.randomCardRotation(),
+    },
+    canDraw() {
+      return this.discard[this.color][0] || {id: null};
+    },
+    card() {
+      return this.discard[this.color][0];
     }
   },
   methods: {
