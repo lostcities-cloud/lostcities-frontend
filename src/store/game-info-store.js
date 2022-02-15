@@ -1,39 +1,41 @@
 import {localAuthRepository} from "@/main";
 
-let emptyState = {
-    loading: true,
-    logs: [
-       {
-           player: "dnelson",
-           created: "2000-10-31T01:30:00.000-05:00",
-           message: "Played cared Red 1"
-       },
-       {
-           player: "dnelson",
-           created: "2000-10-31T01:30:00.000-05:00",
-           message: "Discarded Red 2"
-       }
-   ],
-   gameState: {
-       "id": null,
-       "deckRemaining": null,
-       "player": null,
-       "isPlayerTurn": false,
-       "hand":[ ],
-       "playAreas": {
-           "ttesterson": {"board":{"YELLOW":[],"WHITE":[],"BLUE":[],"GREEN":[],"RED":[]}},
-           "dnelson": {"board":{"YELLOW":[],"WHITE":[],"BLUE":[],"GREEN":[],"RED":[]}}
-       },
-       "discard":{
-           "board": {"YELLOW":[],"WHITE":[],"BLUE":[],"GREEN":[],"RED":[]}
-       }
-   },
+function emptyState() {
+    return {
+        loading: true,
+        logs: [
+            {
+                player: "dnelson",
+                created: "2000-10-31T01:30:00.000-05:00",
+                message: "Played cared Red 1"
+            },
+            {
+                player: "dnelson",
+                created: "2000-10-31T01:30:00.000-05:00",
+                message: "Discarded Red 2"
+            }
+        ],
+        gameState: {
+            "id": null,
+            "deckRemaining": null,
+            "player": null,
+            "isPlayerTurn": false,
+            "hand": [],
+            "playAreas": {
+                "ttesterson": {"board": {"YELLOW": [], "WHITE": [], "BLUE": [], "GREEN": [], "RED": []}},
+                "dnelson": {"board": {"YELLOW": [], "WHITE": [], "BLUE": [], "GREEN": [], "RED": []}}
+            },
+            "discard": {
+                "board": {"YELLOW": [], "WHITE": [], "BLUE": [], "GREEN": [], "RED": []}
+            }
+        },
 
-   turnCommands: {
-       playOrDiscard: null,
-       draw: null
-   }
-};
+        turnCommands: {
+            playOrDiscard: null,
+            draw: null
+        }
+    }
+}
 
 const getters = {
     logs(state) {
@@ -100,7 +102,7 @@ const getters = {
 
 const mutations = {
     RESET_STATE(state) {
-        Object.assign(state, emptyState)
+        Object.assign(state, emptyState())
     },
     MERGE_GAME(state, gameState) {
         Object.assign(state.gameState, gameState)
@@ -167,7 +169,7 @@ const actions = {
 
 export default {
     namespaced: true,
-    state: Object.assign({}, emptyState),
+    state: emptyState(),
     getters,
     actions,
     mutations

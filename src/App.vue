@@ -1,6 +1,6 @@
 <template>
   <div>
-    <notifications/>
+
     <component :is="$route.meta.layout">
 
       <router-view class="view"></router-view>

@@ -1,14 +1,17 @@
 <template>
-  <div
-      class="game-card"
-      v-bind:style="style"
-       v-b-tooltip
-      v-bind:title="`Remaining: ${deckRemaining}`"
-  >
-    <div class="game-card-back">
-      <b-button v-if="canDraw" v-on:click="drawFromDeck">Draw</b-button>
-      <span class="card-emoji">&#x1F9ED;</span>
+  <div>
+    <div
+        class="game-card"
+        v-bind:style="style"
+         v-b-tooltip
+        v-bind:title="`Remaining: ${deckRemaining}`"
+    >
+      <div class="game-card-back">
+        <b-button v-if="canDraw" v-on:click="drawFromDeck">Draw</b-button>
+        <span class="card-emoji">&#x1F9ED;</span>
+      </div>
     </div>
+    <span>{{deckRemaining}}</span>
   </div>
 </template>
 

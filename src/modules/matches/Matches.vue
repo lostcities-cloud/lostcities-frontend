@@ -12,9 +12,10 @@
       <b-container style="margin-top: 50px;">
         <b-row v-for="(match, i) in matches" v-bind:key="i">
           <b-col>
+
             <b-card class="text-left" style="margin-bottom:10px;">
               <template #header>
-                <h4 class="mb-0">Match {{match.id}}</h4>
+                <h4 class="mb-0">Match {{match.id}} <span v-if="match.players.user2 === null"> - Waiting for opponent.</span></h4>
               </template>
               <b-card-text v-if="match.players.user1">
                 <strong>Player 1:</strong> {{match.players.user1}}
@@ -22,30 +23,32 @@
               <b-card-text v-if="match.players.user2">
                 <strong>Player 2:</strong> {{match.players.user2}}
               </b-card-text>
-
               <b-card-text v-if="match.players.user2">
                 <strong>Ready?:</strong> {{match.isReady}}
               </b-card-text>
 
-              <b-button v-if="match.isReady && isMyMatch(match)"
-                  class="game-links"
-                  variant="primary"
-                  :to="{ name: 'game', params: { id: match.id }}"
-              >
-                Play
-              </b-button>
-              <b-button v-if="match.isReady && isMyMatch(match)"
-                  class="game-links"
-                  variant="primary">
-                Resign
-              </b-button>
+              <b-button-group>
+                <b-button v-if="match.isReady && isMyMatch(match)"
+                    class="game-links"
+                    variant="primary"
+                    :to="{ name: 'game', params: { id: match.id }}"
+                >
+                  Play
+                </b-button>
+                <b-button v-if="match.isReady && isMyMatch(match)"
+                    class="game-links"
+                    variant="primary">
+                  Resign
+                </b-button>
 
-              <b-button v-if="canJoin(match)" v-on:click="join(match.id)"
-                  class="game-links"
-                  variant="primary"
-              >
-                Join
-              </b-button>
+                <b-button v-if="canJoin(match)" v-on:click="join(match.id)"
+                    class="game-links"
+                    variant="primary"
+                >
+                  Join
+                </b-button>
+              </b-button-group>
+
             </b-card>
           </b-col>
         </b-row>
@@ -113,7 +116,7 @@ export default {
     },
 
     isMyMatch(match) {
-      return match.players.user1 !== this.login
+      return match.players.user1 === this.login || match.players.user2 === this.login
     },
 
     canJoin(match) {
@@ -126,6 +129,12 @@ export default {
 </script>
 
 <style>
+
+.btn-group .btn {
+  position:relative;
+  top: 0;
+  margin-right: 0;
+}
 
 .matches {
 

@@ -27,6 +27,7 @@ export default class GameService {
 
     async retrieveGameState(id) {
         try {
+            await store._actions["gameInfo/reset"][0]()
             await store._actions["gameInfo/startLoading"][0]()
             let response = await this.axios.get(`/api/gamestate/${id}`)
             this.store = store;
