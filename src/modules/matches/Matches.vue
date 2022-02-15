@@ -15,13 +15,21 @@
 
             <b-card class="text-left" style="margin-bottom:10px;">
               <template #header>
-                <h4 class="mb-0">Match {{match.id}} <span v-if="match.players.user2 === null"> - Waiting for opponent.</span></h4>
+                <h4 class="mb-0">
+                  Match {{match.id}}
+                  <span v-if="match.players.user2 === null"> - Waiting for opponent.</span>
+                  <b-icon
+                      icon="exclamation-circle-fill" variant="secondary"
+                      v-if="match.players.user2 !== null && login == match.currentPlayer" />
+                </h4>
               </template>
               <b-card-text v-if="match.players.user1">
                 <strong>Player 1:</strong> {{match.players.user1}}
+                <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="match.players.user1 == match.currentPlayer" />
               </b-card-text>
               <b-card-text v-if="match.players.user2">
                 <strong>Player 2:</strong> {{match.players.user2}}
+                <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="match.players.user2 == match.currentPlayer" />
               </b-card-text>
               <b-card-text v-if="match.players.user2">
                 <strong>Ready?:</strong> {{match.isReady}}
