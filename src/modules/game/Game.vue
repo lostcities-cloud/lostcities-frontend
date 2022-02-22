@@ -39,7 +39,6 @@ import CardDeck from "@/modules/game/cards/CardDeck";
 import DiscardPiles from "@/modules/game/discard-area/DiscardPiles";
 import PlayArea from "@/modules/game/play-area/PlayArea";
 
-
 export default {
   name: "game",
   components: {
@@ -50,6 +49,7 @@ export default {
   } ,
   data() {
     return {
+
       game: {
         type: Object,
         default: {
@@ -64,6 +64,7 @@ export default {
   ],
 
   async created() {
+    this.gamesService.listenForChanges(this.$route.params.id, this.login)
     this.game = await this.loadGame()
   },
 
