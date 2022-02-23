@@ -43,12 +43,11 @@ export default class GameService {
         this.stomp.connect({}, (frame) => {
             console.log('Connected: ' + frame);
             this.stomp.subscribe(`/games-broker/${id}/${login}`, async (gamestate) => {
-                await store._actions["gameInfo/reset"][0]()
-                await store._actions["gameInfo/startLoading"][0]()
                 let gameState = JSON.parse(gamestate.body)
+                console.log("Game Events: ")
+                console.dir(gameState)
+                await store._actions["gameInfo/reset"][0]()
                 await store._actions["gameInfo/mergeGame"][0](gameState)
-                await store._actions["gameInfo/doneLoading"][0]()
-
             });
         });
     }
@@ -72,7 +71,6 @@ export default class GameService {
         try {
             await store._actions["gameInfo/startLoading"][0]()
             let response = await this.axios.patch(`/api/gamestate/${id}`, command)
-            await store._actions["gameInfo/mergeGame"][0](response.data)
             await store._actions["gameInfo/doneLoading"][0]()
             return response.data
         } catch(e) {

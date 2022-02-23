@@ -137,6 +137,7 @@ const mutations = {
 
 const actions = {
     reset({ commit }) {
+        commit('CLEAR_TURN_COMMANDS')
         commit('RESET_STATE')
     },
     startLoading({ commit }) {
