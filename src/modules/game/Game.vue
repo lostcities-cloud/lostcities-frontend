@@ -62,12 +62,15 @@ export default {
   inject: [
     'gamesService'
   ],
-
   async created() {
-    this.gamesService.listenForChanges(this.$route.params.id, this.login)
     this.game = await this.loadGame()
-  },
+    this.gamesService.listenForChanges(this.$route.params.id, this.login)
 
+  },
+  beforeRouteLeave(to, from, next) {
+    this.gamesService.disconnect()
+    next()
+  },
   computed: {
     ...mapState('accounts', ['login']),
     ...mapGetters('gameInfo', [

@@ -7,10 +7,6 @@ import {store, localAuthRepository } from "@/main";
 
 export default class GameService {
     constructor() {
-        this.sock = new SockJS('https://lostcities.app/api/player-events/lost-cities')
-
-        this.stomp = Stomp.over(this.sock)
-
         this.axios = axios.create({
             baseUrl: process.env.GAME_API,
             timeout: 2000
@@ -40,6 +36,10 @@ export default class GameService {
     }
 
     listenForChanges(id, login) {
+        this.sock = new SockJS('https://lostcities.app/api/player-events/lost-cities')
+
+        this.stomp = Stomp.over(this.sock)
+
         this.stomp.connect({}, (frame) => {
             console.log('Connected: ' + frame);
             this.stomp.subscribe(`/games-broker/${id}/${login}`, async (gamestate) => {
