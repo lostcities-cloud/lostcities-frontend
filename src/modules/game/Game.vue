@@ -19,7 +19,7 @@
             v-bind:color="card.color"
             v-bind:value="card.value"
             v-bind:is-multiplier="card.isMultiplier"
-            v-bind:options="['Play', 'Discard']"
+            v-bind:options="getOptions(card)"
             v-on:card-option="handEvent"
         >
         </game-card>
@@ -73,10 +73,7 @@ export default {
   },
   computed: {
     ...mapState('accounts', ['login']),
-    ...mapGetters('gameInfo', [
-      'hand'
-    ]),
-
+    ...mapGetters('gameInfo', ['hand', 'canPlayOrDiscard']),
   },
   methods: {
     async loadGame() {
@@ -90,7 +87,9 @@ export default {
         this.discard(event.card)
       }
     },
-
+    getOptions() {
+      return this.canPlayOrDiscard ? ['Play', 'Discard'] : []
+    },
     play(card) {
       let command = {type: "PLAY", card}
       console.log(`Play: ${JSON.stringify(command)}`)

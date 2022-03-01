@@ -8,10 +8,12 @@
     >
       <div class="game-card-back">
         <b-button v-if="canDraw" v-on:click="drawFromDeck">Draw</b-button>
+
         <span class="card-emoji">&#x1F9ED;</span>
+        <span class="card-count">{{deckRemaining}}</span>
       </div>
     </div>
-    <span>{{deckRemaining}}</span>
+
   </div>
 </template>
 
@@ -78,6 +80,11 @@ export default {
   margin: 10px 10px;
   height:124px;
   background-color: #a66432;
+}
+
+.card-count {
+  font-size: 30px;
+  color: rgba(255, 160, 36, 0.98);
 }
 
 .card-emoji {

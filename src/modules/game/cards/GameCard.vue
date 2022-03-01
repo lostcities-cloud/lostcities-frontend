@@ -11,7 +11,8 @@
     </div>
     <div class="game-card-body" v-bind:style="{ backgroundColor: getColorCode(color) }">
       <b-button
-          class="card-options" v-for="(optionName, i) in options"
+          class="card-options"
+          v-for="(optionName, i) in options"
           :key="i"
           v-bind:style="{display: cardOptionsDisplay()}"
           v-on:click="$emit('card-option', {optionName, card: id})"
@@ -50,7 +51,7 @@ export default {
         '-ms-transform':`rotate(${this.rotation}deg)`
       }
     },
-    ...mapGetters('gameInfo', ['canPlayOrDiscard'])
+    ...mapGetters('gameInfo', ['canPlayOrDiscard', 'canDraw'])
   },
   methods: {
     cardOptionsDisplay() {
@@ -92,6 +93,8 @@ export default {
   height:100px;
   background-color: #ff0bf2;
   position:relative;
+  display: block;
+  text-align:center;
 }
 
 .card-emoji {
@@ -105,11 +108,12 @@ export default {
   position: absolute;
 }
 
-button {
+.game-card button {
   z-index: 100;
   position: relative;
   top:0;
   opacity: .7;
+  display: inline-block!important;
 }
 
 </style>

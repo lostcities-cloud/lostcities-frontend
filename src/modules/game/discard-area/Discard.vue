@@ -1,14 +1,13 @@
 <template>
   <div class="discard-pile" v-bind:style="style">
-
-    <b-button v-if="canDraw" v-on:click="$emit('draw-from-discard')">Draw</b-button>
-    <game-card v-if="canDraw"
+    <game-card v-if="hasCard"
                v-bind:id="card.id"
                v-bind:color="card.color"
                v-bind:value="card.value"
                v-bind:is-multiplier="card.isMultiplier"
-               v-bind:options="['Discard']">
-
+               v-bind:options="getOptions()"
+               v-on:card-option="handle"
+    >
     </game-card>
 
     <span class="card-emoji">&#x1F5FA;</span>
@@ -19,9 +18,13 @@
 
 import CardUtils from "@/modules/game/CardUtils";
 import {mapGetters} from "vuex";
+import GameCard from "@/modules/game/cards/GameCard";
 
 export default {
   name: "discard",
+  components: {
+    "game-card": GameCard
+  },
   props: {
     color: String
   },
@@ -31,7 +34,7 @@ export default {
     }
   },
   computed: {
-    ...mapGetters('gameInfo', ['discard']),
+    ...mapGetters('gameInfo', ['discard', 'canDraw']),
     style() {
       return {
         backgroundColor: this.getColorCode(),
@@ -41,16 +44,29 @@ export default {
         '-ms-transform':`rotate(${this.rotation}deg)`
       }
     },
-    canDraw() {
+    hasCard() {
       return this.discard[this.color].length > 0;
     },
     card() {
       return this.discard[this.color][0];
-    }
+    },
+
+
   },
   methods: {
     getColorCode() {
       return CardUtils.getMapCode(this.color)
+    },
+
+    getOptions() {
+      if(this.canDraw) {
+        return ['Draw'];
+      } else {
+        return []
+      }
+    },
+    handle() {
+      this.$emit('draw-from-discard')
     }
   }
 }
@@ -88,6 +104,12 @@ button {
   position: relative;
   top: 30px;
   opacity: .7;
+}
+
+.game-card {
+  position: relative;
+  z-index: 500;
+  top: -13px;
 }
 
 </style>

@@ -58,9 +58,10 @@ export default {
     margin:10px;
     padding:5px;
     background-color: #9f4f4e;
-    display: inline-block;
     box-shadow: 0 1px 5px #000000d6;
     width: 710px;
     height: 150px;
+    display: grid;
+    grid-template-columns: 140px 140px 140px 140px 140px;
   }
 </style>
