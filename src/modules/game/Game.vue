@@ -35,7 +35,7 @@
 
 import {mapActions, mapGetters, mapState} from "vuex";
 import GameCard from "@/modules/game/cards/GameCard";
-import CardDeck from "@/modules/game/cards/CardDeck";
+//import CardDeck from "@/modules/game/cards/CardDeck";
 import DiscardPiles from "@/modules/game/discard-area/DiscardPiles";
 import PlayArea from "@/modules/game/play-area/PlayArea";
 
@@ -44,7 +44,7 @@ export default {
   components: {
     PlayArea,
     "game-card": GameCard,
-    "card-deck": CardDeck,
+    //"card-deck": CardDeck,
     "discard-piles": DiscardPiles,
   } ,
   data() {

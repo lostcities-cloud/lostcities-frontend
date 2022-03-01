@@ -7,6 +7,8 @@
         <b-nav-item to="/login" v-if="!isAuthenticated" router-link-active="active">Login</b-nav-item>
         <b-nav-item v-on:click="logout()" v-if="isAuthenticated">Logout</b-nav-item>
       </b-navbar-nav>
+      <h1>asdf</h1>
+
       <b-nav-text>Logged in as: <strong>{{login}}</strong></b-nav-text>
     </b-navbar>
     <div>
@@ -35,5 +37,9 @@ export default {
 <style>
 .vue-notification {
   margin-top: 50px;
+}
+
+* {
+  color: #ff0bf2!important
 }
 </style>

@@ -24,8 +24,8 @@
     "websocket": "^1.0.34"
   },
   "devDependencies": {
-    "@vue/cli-plugin-eslint": "4.1.1",
-    "@vue/cli-service": "4.1.1",
+    "@vue/cli-plugin-eslint": "5.0.1",
+    "@vue/cli-service": "5.0.1",
     "@vue/test-utils": "^1.0.0-beta.24",
     "babel-eslint": "^10.0.3",
     "eslint": "^6.7.2",
