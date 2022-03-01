@@ -44,8 +44,6 @@ export default class GameService {
             console.log('Connected: ' + frame);
             this.stomp.subscribe(`/games-broker/${id}/${login}`, async (gamestate) => {
                 let gameState = JSON.parse(gamestate.body)
-                console.log("Game Events: ")
-                console.dir(gameState)
                 await store._actions["gameInfo/reset"][0]()
                 await store._actions["gameInfo/mergeGame"][0](gameState)
             });

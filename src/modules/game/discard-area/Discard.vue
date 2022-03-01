@@ -42,7 +42,7 @@ export default {
       }
     },
     canDraw() {
-      return this.discard[this.color][0] || {id: null};
+      return this.discard[this.color].length > 0;
     },
     card() {
       return this.discard[this.color][0];
