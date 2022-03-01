@@ -2,6 +2,7 @@ import axios from 'axios';
 import SockJS from "sockjs-client"
 import Stomp from "stompjs"
 import {store, localAuthRepository } from "@/main";
+import Vue from "vue";
 
 
 
@@ -46,6 +47,14 @@ export default class GameService {
                 let gameState = JSON.parse(gamestate.body)
                 await store._actions["gameInfo/reset"][0]()
                 await store._actions["gameInfo/mergeGame"][0](gameState)
+            });
+
+            this.stomp.subscribe(`/games-broker/${id}/${login}/errors`, async (errorResponse) => {
+                let errorMessage = JSON.parse(errorResponse.body)
+                Vue.notify({
+                    text: errorMessage.error,
+                    type: 'success'
+                })
             });
         });
     }
