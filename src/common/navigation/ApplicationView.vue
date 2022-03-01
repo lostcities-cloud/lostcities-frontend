@@ -40,6 +40,6 @@ export default {
 }
 
 * {
-  color: #ff0bf2!important
+  /*color: #ff0bf2!important*/
 }
 </style>

@@ -1,13 +1,12 @@
-module.exports = {
-    runtimeCompiler: true,
+const { defineConfig } = require('@vue/cli-service')
+
+module.exports = defineConfig({
+    runtimeCompiler: false,
     devServer: {
-        //hotReload: false,
-        host: '0.0.0.0',
-        port: 8080,
-        public: 'https://lostcities.app/',
-        liveReload: false,
-        disableHostCheck: false,
-        inline: false,
-        injectClient: false,
-    }
-}
+        webSocketServer: false,
+    },
+    chainWebpack: config => {
+        config.plugins.delete('hmr');
+    },
+
+})

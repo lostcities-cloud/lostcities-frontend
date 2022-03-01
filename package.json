@@ -2,34 +2,34 @@
   "name": "lostcities-frontend",
   "version": "0.1.0",
   "private": true,
+  "description": "",
   "scripts": {
-    "serve": "vue-cli-service serve",
+    "serve": "vue-cli-service serve --config vue.config.js",
     "build": "vue-cli-service build",
     "lint": "vue-cli-service lint",
     "test": "npm run lint && npm run unit",
     "unit": "jest"
   },
   "dependencies": {
-    "@stomp/stompjs": "^6.1.2",
-    "@vue/cli-plugin-babel": "4.1.1",
     "axios": "0.21.1",
     "bootstrap": "4.5.3",
     "bootstrap-vue": "2.21.2",
+    "net": "^1.0.2",
     "sockjs-client": "1.5.2",
     "stompjs": "^2.3.3",
     "vue": "^2.6.11",
     "vue-notification": "^1.3.20",
     "vue-router": "3.5.2",
-    "vuex": "^3.6.2",
-    "websocket": "^1.0.34"
+    "vuex": "^3.6.2"
   },
   "devDependencies": {
-    "@vue/cli-plugin-eslint": "5.0.1",
-    "@vue/cli-service": "5.0.1",
+    "@vue/cli-plugin-babel": "~5.0.1",
+    "@vue/cli-plugin-eslint": "~5.0.1",
+    "@vue/cli-service": "~5.0.1",
     "@vue/test-utils": "^1.0.0-beta.24",
     "babel-eslint": "^10.0.3",
-    "eslint": "^6.7.2",
-    "eslint-plugin-vue": "^6.0.1",
+    "eslint": "^7.5.0",
+    "eslint-plugin-vue": "^8.5.0",
     "jest": "^21.1.0",
     "jest-serializer-vue": "^0.2.0",
     "vue-jest": "^2.6.0",
@@ -45,7 +45,19 @@
       "eslint:recommended"
     ],
     "rules": {
-      "no-debugger": 1
+      "no-debugger": 1,
+      "vue/multi-word-component-names": [
+        "error",
+        {
+          "ignores": [
+            "game",
+            "discard",
+            "login",
+            "matches",
+            "register"
+          ]
+        }
+      ]
     },
     "parserOptions": {
       "parser": "babel-eslint"
@@ -81,6 +93,5 @@
       "^@/(.*)$": "<rootDir>/src/$1"
     }
   },
-  "keywords": [],
-  "description": ""
+  "keywords": []
 }
