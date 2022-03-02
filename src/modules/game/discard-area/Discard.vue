@@ -86,6 +86,10 @@ export default {
   position: relative;
 }
 
+.discard-pile > .game-card {
+  margin-left: 0;
+}
+
 .card-emoji {
   font-size: 70px;
   line-height: 110px;
