@@ -9,7 +9,7 @@ WORKDIR /usr/src/lostcities/
 ENV NPM_CONFIG_PREFIX=/opt/node/node_modules
 
 # Bundle app source
-COPY package*.json ./
+COPY . /usr/src/lostcities/
 
 RUN npm install
 

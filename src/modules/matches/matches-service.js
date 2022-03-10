@@ -43,7 +43,7 @@ export default class MatchesService {
 
   async getMatches() {
     try {
-      let response = await this.axios.get('/api/matches')
+      let response = await this.axios.get('/api/matches/')
       return response.data
     } catch(e) {
       throw new Error("Unable to get matches.")
