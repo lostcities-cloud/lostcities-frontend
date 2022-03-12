@@ -17,6 +17,7 @@
         v-bind:color="`RED`"
         v-on:draw-from-discard="$emit('draw-from-discard', `RED`)" />
 
+    <card-deck></card-deck>
 
   </div>
 </template>
@@ -26,12 +27,14 @@
 
 import {mapActions, mapState} from "vuex";
 import Discard from "@/modules/game/discard-area/Discard";
+import CardDeck from "@/modules/game/cards/CardDeck";
 
 export default {
   name: "discard-piles",
   components: {
     // eslint-disable-next-line vue/no-unused-components
-    "discard": Discard,
+    Discard,
+    CardDeck,
   } ,
   inject: [
     'gamesService'
@@ -57,6 +60,9 @@ export default {
     allowDrop(e) {
       e.preventDefault()
     },
+    ...mapActions('gameInfo', [
+      'discardCommand',
+    ])
   }
 }
 </script>
@@ -67,9 +73,9 @@ export default {
     padding:5px;
     background-color: #9f4f4e;
     box-shadow: 0 1px 5px #000000d6;
-    width: 710px;
+    width: 840px;
     height: 150px;
     display: grid;
-    grid-template-columns: 140px 140px 140px 140px 140px;
+    grid-template-columns: 140px 140px 140px 140px 140px 140px;
   }
 </style>

@@ -85,7 +85,7 @@ export default {
 
 <style scoped>
 .game-info-view {
-  height: 485px;
+  height: 300px;
   min-width: 200px;
   background-color: #ececec;;
   padding: 1em;

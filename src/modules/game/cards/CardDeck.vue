@@ -1,6 +1,6 @@
 <template>
-  <button :disabled="!canDraw" v-on:click="drawFromDeck">
-    <div
+
+    <button :disabled="!canDraw" v-on:click="drawFromDeck"
         class="game-card"
         v-bind:style="style"
          v-b-tooltip
@@ -9,10 +9,11 @@
       <div class="game-card-back">
 
 
+
+
         <span class="card-emoji">&#x1F9ED;</span>
         <span class="card-count">{{deckRemaining}}</span>
       </div>
-    </div>
   </button>
 </template>
 
@@ -73,6 +74,8 @@ export default {
   border-radius: 5px;
   box-shadow: 0 1px 5px #000000d6;
   text-align:center;
+  padding: 0;
+  margin: 0;
 }
 
 .game-card-back {

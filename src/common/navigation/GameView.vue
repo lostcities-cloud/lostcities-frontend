@@ -24,12 +24,11 @@
     <logs-model></logs-model>
     <b-container>
       <b-row>
-        <b-col cols="8" class="bg-dark text-dark border rounded" >
+        <b-col cols="8" class="text-dark border rounded" >
           <slot />
         </b-col>
         <b-col cols="4">
           <game-info id="game-info"></game-info>
-          <card-deck></card-deck>
         </b-col>
       </b-row>
     </b-container>
@@ -40,13 +39,13 @@
 import {router} from "@/main";
 import GameInfo from "@/modules/game-info/GameInfo";
 import LogsModel from "@/modules/game/LogsModal";
-import CardDeck from "@/modules/game/cards/CardDeck";
+
 
 
 export default {
   components: {
     LogsModel,
-    CardDeck,
+
     GameInfo
   },
   methods: {

@@ -1,11 +1,8 @@
 <template>
   <div class="discard-pile" v-bind:style="style">
     <game-card v-if="hasCard"
-               v-bind:id="card.id"
-               v-bind:color="card.color"
-               v-bind:value="card.value"
-               v-bind:is-multiplier="card.isMultiplier"
-               v-bind:options="getOptions()"
+               :disabled="!canDraw"
+               v-bind="card"
                v-on:card-option="handle"
     >
     </game-card>
@@ -108,7 +105,6 @@ button {
   z-index: 100;
   position: relative;
   top: 30px;
-  opacity: .7;
 }
 
 .game-card {

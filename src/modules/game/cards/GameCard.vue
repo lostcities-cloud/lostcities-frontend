@@ -2,8 +2,6 @@
   <button
       class="game-card"
       v-bind:style="style"
-      v-bind:disabled="isActive"
-      v-bind:draggable="isActive"
       v-on:click="$emit('card-option', {optionName: 'Play', card: id})"
       @dragstart="dragstart($event)"
 
@@ -54,8 +52,6 @@ export default {
   },
   methods: {
     dragstart(e) {
-      if(!this.isActive) return;
-
       e.dataTransfer.setData("id", this.id)
     },
     cardOptionsDisplay() {

@@ -1,31 +1,29 @@
 <template>
   <div class="game-view">
+    <div class="card-hand" style="z-index: 10000;">
+      <game-card
+          v-for="(card) in sortedHand()"
+          :key="card.id"
+          :disabled="!canPlayOrDiscard"
+          :draggable="canPlayOrDiscard"
+          v-bind="card"
+          v-on:card-option="handEvent"
+      >
+      </game-card>
+    </div>
 
-
-    <div style="display: block;" >
-      <div class="game-board" >
+    <div style="display: block; transform: perspective(800px) rotateX(30deg); background-color: #343a40; position:relative; top:-100px" >
+      <div class="game-board" @drop="dropPlayCard($event)" @dragover="dragPlayCard($event)" >
         <play-area></play-area>
       </div>
 
       <div class="game-middle">
         <discard-piles v-on:draw-from-discard="drawFromDiscard"></discard-piles>
-      </div>
 
-      <div class="card-hand" style="z-index: 10000;">
-        <game-card
-            v-for="(card) in sortedHand()"
-            :key="card.id"
-            v-bind:id="card.id"
-            v-bind:color="card.color"
-            v-bind:value="card.value"
-            v-bind:is-multiplier="card.isMultiplier"
-            v-bind:options="getOptions(card)"
-
-            v-on:card-option="handEvent"
-        >
-        </game-card>
       </div>
     </div>
+
+
   </div>
 </template>
 
@@ -36,11 +34,13 @@ import GameCard from "@/modules/game/cards/GameCard";
 import DiscardPiles from "@/modules/game/discard-area/DiscardPiles";
 import PlayArea from "@/modules/game/play-area/PlayArea";
 
+
 export default {
   name: "game",
   components: {
     PlayArea,
     GameCard,
+
     DiscardPiles,
   } ,
   data() {
@@ -68,7 +68,7 @@ export default {
   },
   computed: {
     ...mapState('accounts', ['login']),
-    ...mapGetters('gameInfo', ['hand']),
+    ...mapGetters('gameInfo', ['hand', 'canPlayOrDiscard']),
   },
   methods: {
 
@@ -99,6 +99,16 @@ export default {
       console.log(`Draw From Discard: ${JSON.stringify(command)}`)
       //this.exec(command)
       this.drawCommand(command)
+    },
+
+    dropPlayCard(event) {
+      event.preventDefault();
+      let id = event.dataTransfer.getData("id");
+      this.play(id)
+    },
+
+    dragPlayCard(event) {
+      event.preventDefault()
     },
 
     sortedHand() {
