@@ -126,7 +126,7 @@ import {mapGetters, mapState} from "vuex";
 export default {
   name: "play-area",
   components: {
-    "game-card": GameCard
+    GameCard
   },
 
   computed: {

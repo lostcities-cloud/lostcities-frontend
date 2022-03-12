@@ -37,7 +37,7 @@ export default class GameService {
     }
 
     listenForChanges(id, login) {
-        this.sock = new SockJS('https://lostcities.app/api/player-events/lost-cities')
+        this.sock = new SockJS('/api/player-events/lost-cities')
 
         this.stomp = Stomp.over(this.sock)
 

@@ -1,6 +1,5 @@
 <template>
   <div>
-
     <div class="text-center bg-light border-bottom"  style="padding-top: 100px; padding-bottom: 30px;">
       <h1 class="mb-3">Matches</h1>
 
@@ -8,56 +7,25 @@
       <b-button v-on:click="createMatch(true)">Start AI Match</b-button>
     </div>
 
-    <b-card-group deck class="matches">
-      <b-container style="margin-top: 50px;">
-        <b-row v-for="(match, i) in matches" v-bind:key="i">
+
+    <h3>Active Matches</h3>
+    <b-card-group deck class="matches-active">
+      <b-container>
+        <b-row v-for="(match, i) in activeMatches.content" v-bind:key="i">
           <b-col>
+            <active-match v-bind="match"></active-match>
+          </b-col>
+        </b-row>
+      </b-container>
+    </b-card-group>
 
-            <b-card class="text-left" style="margin-bottom:10px;">
-              <template #header>
-                <h4 class="mb-0">
-                  Match {{match.id}}
-                  <span v-if="match.players.user2 === null"> - Waiting for opponent.</span>
-                  <b-icon
-                      icon="exclamation-circle-fill" variant="secondary"
-                      v-if="match.players.user2 !== null && login == match.currentPlayer" />
-                </h4>
-              </template>
-              <b-card-text v-if="match.players.user1">
-                <strong>Player 1:</strong> {{match.players.user1}}
-                <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="match.players.user1 == match.currentPlayer" />
-              </b-card-text>
-              <b-card-text v-if="match.players.user2">
-                <strong>Player 2:</strong> {{match.players.user2}}
-                <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="match.players.user2 == match.currentPlayer" />
-              </b-card-text>
-              <b-card-text v-if="match.players.user2">
-                <strong>Ready?:</strong> {{match.isReady}}
-              </b-card-text>
+    <h3>Available Matches</h3>
+    <b-card-group deck class="matches-available">
+      <b-container>
+        <b-row v-for="(match, i) in availableMatches.content" v-bind:key="i">
+          <b-col>
+            <active-match v-bind="match"></active-match>
 
-              <b-button-group>
-                <b-button v-if="match.isReady && isMyMatch(match)"
-                    class="game-links"
-                    variant="primary"
-                    :to="{ name: 'game', params: { id: match.id }}"
-                >
-                  Play
-                </b-button>
-                <b-button v-if="match.isReady && isMyMatch(match)"
-                    class="game-links"
-                    variant="primary">
-                  Resign
-                </b-button>
-
-                <b-button v-if="canJoin(match)" v-on:click="join(match.id)"
-                    class="game-links"
-                    variant="primary"
-                >
-                  Join
-                </b-button>
-              </b-button-group>
-
-            </b-card>
           </b-col>
         </b-row>
       </b-container>
@@ -68,19 +36,25 @@
 
 <script>
 import {mapActions, mapGetters} from "vuex";
+import ActiveMatch from "@/modules/matches/ActiveMatch";
 
 export default {
   name: "login",
+  components: {
+    'active-match': ActiveMatch
+  },
   data() {
     return {
-      matches: []
+      activeMatches: {content: []},
+      availableMatches: {content: []}
     }
   },
   inject: [
     'matchesService'
   ],
-  created() {
-    this.loadMatches()
+  async created() {
+    this.activeMatches = await this.matchesService.getActiveMatches();
+    this.availableMatches = await this.matchesService.getAvailableMatches()
   },
 
   computed: {
@@ -113,16 +87,6 @@ export default {
       return match
     },
 
-    async loadMatches() {
-      let matches = await this.matchesService.getMatches()
-
-      console.dir(matches)
-
-
-
-      this.matches = matches;
-    },
-
     isMyMatch(match) {
       return match.players.user1 === this.login || match.players.user2 === this.login
     },
@@ -136,7 +100,11 @@ export default {
 }
 </script>
 
-<style>
+<style scoped>
+
+h3 {
+  margin-top: 50px;
+}
 
 .btn-group .btn {
   position:relative;

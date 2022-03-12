@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <button :disabled="!canDraw" v-on:click="drawFromDeck">
     <div
         class="game-card"
         v-bind:style="style"
@@ -7,14 +7,13 @@
         v-bind:title="`Remaining: ${deckRemaining}`"
     >
       <div class="game-card-back">
-        <b-button v-if="canDraw" v-on:click="drawFromDeck">Draw</b-button>
+
 
         <span class="card-emoji">&#x1F9ED;</span>
         <span class="card-count">{{deckRemaining}}</span>
       </div>
     </div>
-
-  </div>
+  </button>
 </template>
 
 <script>
@@ -101,10 +100,7 @@ export default {
 }
 
 button {
-  z-index: 100;
-  position: relative;
-  top: 30px;
-  opacity: .7;
+  border: none;
 }
 
 </style>

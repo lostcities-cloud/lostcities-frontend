@@ -9,6 +9,8 @@ export default class MatchesService {
 
     })
 
+    this.axios.defaults.trailingSlash = false;
+
     this.axios.interceptors.request.use(function (config) {
       if(localAuthRepository.isAuthenticated()) {
         config.headers.common.Authorization = `Bearer ${localAuthRepository.get().token}`
@@ -23,9 +25,9 @@ export default class MatchesService {
     })
   }
 
-  async create(ai=false) {
+  async create() {
     try {
-      let response = await this.axios.post(`/api/matches?id=${ai}`)
+      let response = await this.axios.post(`/api/matches/`, {})
       return response.data
     } catch(e) {
       throw new Error("Unable to create match.")
@@ -41,9 +43,18 @@ export default class MatchesService {
     }
   }
 
-  async getMatches() {
+  async getActiveMatches() {
     try {
-      let response = await this.axios.get('/api/matches/')
+      let response = await this.axios.get('/api/matches/active')
+      return response.data
+    } catch(e) {
+      throw new Error("Unable to get matches.")
+    }
+  }
+
+  async getAvailableMatches() {
+    try {
+      let response = await this.axios.get('/api/matches/available')
       return response.data
     } catch(e) {
       throw new Error("Unable to get matches.")

@@ -20,13 +20,11 @@
             v-bind:value="card.value"
             v-bind:is-multiplier="card.isMultiplier"
             v-bind:options="getOptions(card)"
+
             v-on:card-option="handEvent"
         >
         </game-card>
       </div>
-
-
-
     </div>
   </div>
 </template>
@@ -35,7 +33,6 @@
 
 import {mapActions, mapGetters, mapState} from "vuex";
 import GameCard from "@/modules/game/cards/GameCard";
-//import CardDeck from "@/modules/game/cards/CardDeck";
 import DiscardPiles from "@/modules/game/discard-area/DiscardPiles";
 import PlayArea from "@/modules/game/play-area/PlayArea";
 
@@ -43,9 +40,8 @@ export default {
   name: "game",
   components: {
     PlayArea,
-    "game-card": GameCard,
-    //"card-deck": CardDeck,
-    "discard-piles": DiscardPiles,
+    GameCard,
+    DiscardPiles,
   } ,
   data() {
     return {
@@ -63,9 +59,8 @@ export default {
     'gamesService'
   ],
   async created() {
-    this.game = await this.loadGame()
     this.gamesService.listenForChanges(this.$route.params.id, this.login)
-
+    this.game = this.gamesService.retrieveGameState(this.$route.params.id)
   },
   beforeRouteLeave(to, from, next) {
     this.gamesService.disconnect()
@@ -73,12 +68,9 @@ export default {
   },
   computed: {
     ...mapState('accounts', ['login']),
-    ...mapGetters('gameInfo', ['hand', 'canPlayOrDiscard']),
+    ...mapGetters('gameInfo', ['hand']),
   },
   methods: {
-    async loadGame() {
-      await this.gamesService.retrieveGameState(this.$route.params.id)
-    },
 
     handEvent(event) {
       if(event.optionName === 'Play') {

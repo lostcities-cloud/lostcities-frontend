@@ -15,6 +15,10 @@
       <notifications/>
       <slot />
     </div>
+
+    <footer>
+      <p>Created by <a href="https://dereknelson.io">Derek Nelson</a></p>
+    </footer>
   </b-container>
 </template>
 
@@ -38,8 +42,10 @@ export default {
 .vue-notification {
   margin-top: 50px;
 }
+</style>
 
-* {
-  /*color: #ff0bf2!important*/
-}
+<style scoped>
+  footer {
+    margin-top:100px;
+  }
 </style>

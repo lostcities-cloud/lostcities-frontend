@@ -54,6 +54,7 @@ export default {
 
   },
   methods: {
+
     getColorCode() {
       return CardUtils.getMapCode(this.color)
     },
@@ -73,7 +74,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
 
 .discard-pile {
   width:119px;
@@ -115,5 +116,6 @@ button {
   z-index: 500;
   top: -13px;
 }
+
 
 </style>
