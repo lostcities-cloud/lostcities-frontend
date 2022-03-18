@@ -91,4 +91,9 @@ export default {
   padding: 1em;
 }
 
+button {
+  position: relative;
+  z-index: 100;
+}
+
 </style>

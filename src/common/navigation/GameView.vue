@@ -27,7 +27,7 @@
         <b-col cols="8" class="text-dark border rounded" >
           <slot />
         </b-col>
-        <b-col cols="4">
+        <b-col cols="4" class="game-info">
           <game-info id="game-info"></game-info>
         </b-col>
       </b-row>
@@ -71,5 +71,11 @@ export default {
   padding-left: 0;
   margin-left: 0;
   margin-right: 0;
+}
+
+.game-info {
+  position: relative;
+  z-index: 0;
+  display: block;
 }
 </style>

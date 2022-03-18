@@ -1,10 +1,8 @@
 <template>
 
-    <button :disabled="!canDraw" v-on:click="drawFromDeck"
+    <b-button :disabled="!canDraw" v-on:click="drawFromDeck"
         class="game-card"
         v-bind:style="style"
-         v-b-tooltip
-        v-bind:title="`Remaining: ${deckRemaining}`"
     >
       <div class="game-card-back">
 
@@ -14,7 +12,7 @@
         <span class="card-emoji">&#x1F9ED;</span>
         <span class="card-count">{{deckRemaining}}</span>
       </div>
-  </button>
+  </b-button>
 </template>
 
 <script>
@@ -38,12 +36,12 @@ export default {
     ]),
     style() {
       return {
-        transform:`rotate(${this.rotation}deg)`,
-        '-webkit-transform':`rotate(${this.rotation}deg)`,
-        '-moz-transform':`rotate(${this.rotation}deg)`,
-        '-ms-transform':`rotate(${this.rotation}deg)`,
-        verticalAlign: 'bottom',
-        marginBottom: '5px'
+        //transform:`rotate(${this.rotation}deg)`,
+        //'-webkit-transform':`rotate(${this.rotation}deg)`,
+        //'-moz-transform':`rotate(${this.rotation}deg)`,
+        //'-ms-transform':`rotate(${this.rotation}deg)`,
+        //verticalAlign: 'bottom',
+        //marginBottom: '5px'
       }
     }
   },
@@ -63,19 +61,18 @@ export default {
 </script>
 
 <style scoped>
-.game-card {
+button.game-card {
   display: inline-block;
   width:100px;
   height: 145px;
   position: relative;
   top: -10px;
   background-color: black;
-  margin:20px 10px;
+  margin: 0 10px;
   border-radius: 5px;
   box-shadow: 0 1px 5px #000000d6;
   text-align:center;
   padding: 0;
-  margin: 0;
 }
 
 .game-card-back {
@@ -100,10 +97,6 @@ export default {
   position: absolute;
   top: 10px;
   left: 10px;
-}
-
-button {
-  border: none;
 }
 
 </style>

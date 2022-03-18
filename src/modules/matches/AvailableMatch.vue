@@ -4,25 +4,26 @@
 
       <b-card-text v-if="players.user1">
         <strong>Player 1:</strong> {{players.user1}}
-        <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="players.user1 == currentPlayer" />
+        <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="players.user1 === currentPlayer" />
       </b-card-text>
       <b-card-text v-if="players.user2">
         <strong>Player 2:</strong> {{players.user2}}
-        <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="players.user2 == currentPlayer" />
+        <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="players.user2 === currentPlayer" />
       </b-card-text>
       <b-card-text v-if="players.user2">
         <strong>Ready?:</strong> {{isReady}}
       </b-card-text>
     </div>
-    <b-button-group>
-      <b-button v-on:click="join(id)"
-                class="game-links"
-                variant="primary"
-      >
-        Join
-      </b-button>
-    </b-button-group>
-
+    <div class="game-card-action">
+      <b-button-group vertical>
+        <b-button v-on:click="join(id)"
+                  class="game-links"
+                  variant="primary"
+        >
+          Join
+        </b-button>
+      </b-button-group>
+    </div>
   </b-card>
 </template>
 
@@ -41,16 +42,20 @@ export default {
   computed: {
     ...mapGetters('accounts', ['login']),
   },
+  inject: [
+    'matchesService'
+  ],
   methods: {
     async join(id) {
-      let match = await this.matchesService.join(id)
-
-      return match
+      return await this.matchesService.join(id)
     },
   }
 }
 </script>
 
 <style scoped>
-
+.card-body {
+  display: flex;
+  justify-content: space-between;
+}
 </style>

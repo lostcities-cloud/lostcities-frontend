@@ -60,4 +60,13 @@ export default class MatchesService {
       throw new Error("Unable to get matches.")
     }
   }
+
+  async resendMatches() {
+    try {
+      return await this.axios.get('/api/matches/resend')
+
+    } catch(e) {
+      throw new Error("Unable to get matches.")
+    }
+  }
 }

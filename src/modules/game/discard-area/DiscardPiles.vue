@@ -77,5 +77,7 @@ export default {
     height: 150px;
     display: grid;
     grid-template-columns: 140px 140px 140px 140px 140px 140px;
+    position:relative;
+    z-index:200;
   }
 </style>

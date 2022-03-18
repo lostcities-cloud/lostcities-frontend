@@ -12,7 +12,7 @@
       </game-card>
     </div>
 
-    <div style="display: block; transform: perspective(800px) rotateX(30deg); background-color: #343a40; position:relative; top:-100px" >
+    <div style="display: block;  background-color: #343a40; position:relative; /*transform: perspective(800px) rotateX(30deg); top:-100px */" >
       <div class="game-board" @drop="dropPlayCard($event)" @dragover="dragPlayCard($event)" >
         <play-area></play-area>
       </div>

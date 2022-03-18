@@ -6,15 +6,15 @@
         <span v-if="players.user2 === null"> - Waiting for opponent.</span>
         <b-icon
             icon="exclamation-circle-fill" variant="secondary"
-            v-if="players.user2 !== null && login == currentPlayer" />
+            v-if="players.user2 !== null && login === currentPlayer" />
       </b-card-title>
       <b-card-text v-if="players.user1">
         <strong>Player 1:</strong> {{players.user1}}
-        <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="players.user1 == currentPlayer" />
+        <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="players.user1 === currentPlayer" />
       </b-card-text>
       <b-card-text v-if="players.user2">
         <strong>Player 2:</strong> {{players.user2}}
-        <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="players.user2 == currentPlayer" />
+        <b-icon icon="exclamation-circle-fill" variant="secondary" v-if="players.user2 === currentPlayer" />
       </b-card-text>
       <b-card-text v-if="players.user2">
         <strong>Ready?:</strong> {{isReady}}
@@ -53,14 +53,15 @@ export default {
     currentPlayer: String,
     players: Object,
   },
+  inject: [
+    'matchesService'
+  ],
   computed: {
     ...mapGetters('accounts', ['login']),
   },
   methods: {
     async join(id) {
-      let match = await this.matchesService.join(id)
-
-      return match
+      return await this.matchesService.join(id)
     },
   }
 }

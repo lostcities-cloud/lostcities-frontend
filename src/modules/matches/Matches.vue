@@ -5,6 +5,7 @@
 
       <b-button v-on:click="createMatch()">Create Game</b-button>
       <b-button v-on:click="createMatch(true)">Start AI Match</b-button>
+      <b-button v-on:click="resendMatches()">Resend Matches</b-button>
     </div>
 
 
@@ -24,7 +25,7 @@
       <b-container>
         <b-row v-for="(match, i) in availableMatches.content" v-bind:key="i">
           <b-col>
-            <active-match v-bind="match"></active-match>
+            <available-match v-bind="match"></available-match>
 
           </b-col>
         </b-row>
@@ -37,11 +38,14 @@
 <script>
 import {mapActions, mapGetters} from "vuex";
 import ActiveMatch from "@/modules/matches/ActiveMatch";
+import AvailableMatch from "@/modules/matches/AvailableMatch";
 
 export default {
   name: "login",
   components: {
-    'active-match': ActiveMatch
+    ActiveMatch,
+    AvailableMatch
+
   },
   data() {
     return {
@@ -64,6 +68,10 @@ export default {
   methods: {
     ...mapActions('matches', ['getMatches']),
 
+    async resendMatches() {
+      return this.matchesService.resendMatches()
+    },
+
     async createMatch(ai=false) {
       try {
         const createdMatch = await this.matchesService.create(ai)
@@ -82,9 +90,7 @@ export default {
     },
 
     async join(id) {
-      let match = await this.matchesService.join(id)
-
-      return match
+      return await this.matchesService.join(id)
     },
 
     isMyMatch(match) {
