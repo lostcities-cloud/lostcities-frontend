@@ -37,6 +37,30 @@ function emptyState() {
     }
 }
 
+function addToHand(state, card) {
+    state.gameState.hand.push(card)
+}
+
+function removeFromHand(state, card) {
+    state.gameState.hand = state.gameState.hand.filter(handCard => handCard.id !== card.id)
+}
+
+function playCard(state, card) {
+    state.gameState.playAreas[state.gameState.player].board[card.color].push(card)
+}
+
+function undoPlayCard(state, card) {
+    state.gameState.playAreas[state.gameState.player].board[card.color] =
+        state.gameState.playAreas[state.gameState.player].board[card.color]
+            .filter(boardCard => boardCard.id !== card.id)
+}
+
+function undoDiscardCard(state, card) {
+    state.gameState.discard.board[card.color] =
+        state.gameState.discard.board[card.color]
+            .filter(boardCard => boardCard.id !== card.id)
+}
+
 const getters = {
     logs(state) {
         return state.logs
@@ -115,6 +139,8 @@ const mutations = {
     },
     PLAY(state, command) {
         state.turnCommands.playOrDiscard = command;
+        removeFromHand(state, command.card);
+        playCard(state, command.card);
     },
     DISCARD(state, command) {
         state.turnCommands.playOrDiscard = command;
@@ -125,7 +151,11 @@ const mutations = {
     UNDO(state) {
         if(state.turnCommands.draw !== null) {
             state.turnCommands.draw = null
+
         } else {
+            undoPlayCard(state, state.turnCommands.playOrDiscard.card)
+            undoDiscardCard(state, state.turnCommands.playOrDiscard.card)
+            addToHand(state, state.turnCommands.playOrDiscard.card)
             state.turnCommands.playOrDiscard = null
         }
     },

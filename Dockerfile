@@ -1,17 +1,16 @@
-FROM node:14
+FROM alpine:3.13.2
 
-# Create app directory
-WORKDIR /usr/src/lostcities/
+# Install thttpd
+RUN apk add thttpd
 
-# If you are building your code for production
-# RUN npm ci --only=production
+# Create a non-root user to own the files and run our server
+RUN adduser -D static
+USER static
+WORKDIR /home/static
 
-ENV NPM_CONFIG_PREFIX=/opt/node/node_modules
+# Copy the static website
+# Use the .dockerignore file to control what ends up inside the image!
+COPY ./dist /home/static
 
-# Bundle app source
-COPY . /usr/src/lostcities/
-
-RUN npm install
-
-EXPOSE 8080
-CMD [ "npm", "run", "serve" ]
+# Run thttpd
+CMD ["thttpd", "-D", "-h", "0.0.0.0", "-p", "3000", "-d", "/home/static", "-u", "static", "-l", "-", "-M", "60"]

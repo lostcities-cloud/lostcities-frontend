@@ -63,9 +63,9 @@ export default {
   methods: {
     commandText(command) {
       if(command.type === 'PLAY') {
-        return `Play ${command.card}`;
+        return `Play ${command.card.id}`;
       } else if(command.type === 'DISCARD') {
-        return `Discard ${command.card}`;
+        return `Discard ${command.card.id}`;
       } else if(command.type === 'DRAW' && command.color) {
         return `Draw from ${command.color.toLowerCase()}.`;
       } else {

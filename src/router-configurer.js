@@ -53,7 +53,8 @@ export default function configureRouter(vue) {
           requiresAuth: false
         } 
       },
-      { 
+      {
+        name: 'Matches',
         path: "/matches", 
         component: Match,
         meta: {

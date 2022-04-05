@@ -43,7 +43,8 @@ export default {
     ...mapActions('accounts', ['login']),
     async doLogin(event) {
       event.preventDefault()
-      return this.login({loginForm: this.loginForm});
+      await this.login({loginForm: this.loginForm});
+      return this.$router.push({ name: 'Matches'})
     }
   }
 };

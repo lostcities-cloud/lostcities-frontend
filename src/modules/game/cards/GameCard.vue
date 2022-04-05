@@ -52,7 +52,19 @@ export default {
   },
   methods: {
     dragstart(e) {
-      e.dataTransfer.setData("id", this.id)
+      e.dataTransfer.setData(
+          "card",
+          JSON.stringify(this.toObject())
+      )
+    },
+    toObject() {
+      return {
+        id: this.id,
+        color: this.color,
+        value: this.value,
+        isActive: this.isActive,
+        isMultiplier: this.isMultiplier,
+      }
     },
     cardOptionsDisplay() {
       return this.canPlayOrDiscard ? 'block': 'none'

@@ -103,8 +103,8 @@ export default {
 
     dropPlayCard(event) {
       event.preventDefault();
-      let id = event.dataTransfer.getData("id");
-      this.play(id)
+      let card = event.dataTransfer.getData("card");
+      this.play(JSON.parse(card))
     },
 
     dragPlayCard(event) {

@@ -1,7 +1,7 @@
 <template>
 
     <b-button :disabled="!canDraw" v-on:click="drawFromDeck"
-        class="game-card"
+        class="game-card card-deck"
         v-bind:style="style"
     >
       <div class="game-card-back">
@@ -61,6 +61,12 @@ export default {
 </script>
 
 <style scoped>
+
+.card-deck {
+  margin-top:7px;
+  border:0;
+}
+
 button.game-card {
   display: inline-block;
   width:100px;
@@ -68,7 +74,7 @@ button.game-card {
   position: relative;
   top: -10px;
   background-color: black;
-  margin: 0 10px;
+  margin: 7px 10px 10px 25px;
   border-radius: 5px;
   box-shadow: 0 1px 5px #000000d6;
   text-align:center;
