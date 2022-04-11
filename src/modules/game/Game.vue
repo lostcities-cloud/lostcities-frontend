@@ -83,7 +83,7 @@ export default {
       return this.canPlayOrDiscard ? ['Play', 'Discard'] : []
     },
     play(card) {
-      let command = {type: "PLAY", card}
+      let command = {type: "PLAY", card: card}
       console.log(`Play: ${JSON.stringify(command)}`)
       //this.exec(command)
       this.playCommand(command)
