@@ -61,7 +61,9 @@ export default {
     ])
   },
   methods: {
+
     commandText(command) {
+      console.log(command);
       if(command.type === 'PLAY') {
         return `Play ${command.card.id}`;
       } else if(command.type === 'DISCARD') {

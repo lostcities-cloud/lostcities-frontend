@@ -141,10 +141,10 @@ const mutations = {
         state.turnCommands.playOrDiscard = command;
         removeFromHand(state, command.card);
         playCard(state, command.card);
-        state.turnCommands.playOrDiscard.card = state.turnCommands.playOrDiscard.card.id
     },
     DISCARD(state, command) {
         state.turnCommands.playOrDiscard = command;
+        removeFromHand(state, command.card)
     },
     DRAW(state, command) {
         state.turnCommands.draw = command;

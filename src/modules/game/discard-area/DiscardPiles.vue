@@ -54,8 +54,9 @@ export default {
 
     drop(event) {
       event.preventDefault()
-      let id = event.dataTransfer.getData("id");
-      this.discardCommand({type: "DISCARD", card: id})
+      let card = event.dataTransfer.getData("card");
+
+      this.discardCommand({type: "DISCARD", card: JSON.parse(card)})
     },
     allowDrop(e) {
       e.preventDefault()

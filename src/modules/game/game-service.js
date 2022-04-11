@@ -76,9 +76,15 @@ export default class GameService {
 
     async playCommand(id, command) {
         try {
+            let playOrDiscard = Object.assign({}, command.playOrDiscard)
+            playOrDiscard.card = playOrDiscard.card.id
+
+            let draw = Object.assign({}, command.draw);
+
             await store._actions["gameInfo/startLoading"][0]()
-            let response = await this.axios.patch(`/api/gamestate/${id}`, command)
+            let response = await this.axios.patch(`/api/gamestate/${id}`, {playOrDiscard, draw})
             await store._actions["gameInfo/doneLoading"][0]()
+
             return response.data
         } catch(e) {
             throw new Error("Unable to get game.")
