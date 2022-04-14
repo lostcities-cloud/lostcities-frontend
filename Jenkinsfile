@@ -30,7 +30,6 @@ pipeline {
         stage('Publish') {
             steps {
                 sh '''
-                gh auth login
                 gh release upload latest ./dist/lostcities-cloud-lostcities-frontend-*.tgz --clobber
                 '''
             }
