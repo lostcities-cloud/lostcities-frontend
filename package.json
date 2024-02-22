@@ -15,31 +15,34 @@
     "push-docker": "docker push ghcr.io/lostcities-cloud/lostcities-frontend"
   },
   "dependencies": {
-    "axios": "0.21.1",
+    "@vitejs/plugin-vue2": "^2.2.0",
+    "@vue/compat": "^3.1.0",
+    "axios": "1.4.0",
     "bootstrap": "4.5.3",
-    "bootstrap-vue": "2.21.2",
+    "bootstrap-vue": "^2.23.0",
     "net": "^1.0.2",
     "node-sass": "^7.0.1",
     "sockjs-client": "1.5.2",
     "stompjs": "^2.3.3",
-    "vue": "^2.6.11",
-    "vue-notification": "^1.3.20",
-    "vue-router": "3.5.2",
-    "vuex": "^3.6.2"
+    "vue": "^3.1.0",
+    "@kyvg/vue3-notification": "2.9.1",
+    "vue-router": "4.2.4",
+    "vuex": "^4.1.0"
   },
   "devDependencies": {
-    "@vue/cli-plugin-babel": "~5.0.1",
-    "@vue/cli-plugin-eslint": "~5.0.1",
-    "@vue/cli-service": "~5.0.1",
-    "@vue/test-utils": "^1.0.0-beta.24",
-    "babel-eslint": "^10.0.3",
-    "eslint": "^7.5.0",
-    "eslint-plugin-vue": "^8.5.0",
-    "jest": "^21.1.0",
+    "@babel/eslint-parser": "^7.22.10",
+    "@vue/cli-plugin-babel": "~5.0.8",
+    "@vue/cli-plugin-eslint": "~5.0.8",
+    "@vue/cli-service": "~5.0.8",
+    "@vue/test-utils": "^2.4.1",
+    "@vue/vue3-jest": "^28",
+    "eslint": "^8.47.0",
+    "eslint-plugin-vue": "^8.7.1",
+    "jest": "^28",
     "jest-serializer-vue": "^0.2.0",
     "sass": "^1.49.9",
     "sass-loader": "^12.6.0",
-    "vue-jest": "^2.6.0",
+    "vue-loader": "17.2.2",
     "vue-template-compiler": "^2.6.11"
   },
   "eslintConfig": {
@@ -53,21 +56,13 @@
     ],
     "rules": {
       "no-debugger": 1,
-      "vue/multi-word-component-names": [
-        "error",
-        {
-          "ignores": [
-            "game",
-            "discard",
-            "login",
-            "matches",
-            "register"
-          ]
-        }
-      ]
+      "vue/multi-word-component-names": "off"
     },
     "parserOptions": {
-      "parser": "babel-eslint"
+      "parser": "@babel/eslint-parser",
+      "ecmaVersion": 11,
+      "requireConfigFile": false,
+      "ignorePatterns": "**/*.js"
     }
   },
   "postcss": {

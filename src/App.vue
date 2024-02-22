@@ -1,16 +1,25 @@
 <template>
   <div>
+    <h1>test</h1>
+    <RouterView></RouterView>
 
-    <component :is="$route.meta.layout">
-
-      <router-view class="view"></router-view>
-    </component>
   </div>
 </template>
 
 <script>
+
+import { useRoute } from 'vue-router'
+
 export default {
-  name: "App"
+  name: "App",
+  props: {
+    get layout() {
+      const route = useRoute()
+      debugger;
+      console.log(route)
+      return route
+    }
+  }
 };
 </script>
 

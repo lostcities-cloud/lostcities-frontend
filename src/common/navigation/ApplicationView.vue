@@ -13,7 +13,7 @@
     </b-navbar>
     <div>
       <notifications/>
-      <slot />
+      <slot></slot>
     </div>
 
     <footer>

@@ -1,19 +1,19 @@
 <template>
   <div class="discard-piles" @drop="drop($event)" @dragover="allowDrop($event)" >
 
-    <discard
+    <trash
         v-bind:color="`YELLOW`"
         v-on:draw-from-discard="$emit('draw-from-discard', `YELLOW`)" />
-    <discard
+    <trash
         v-bind:color="`BLUE`"
         v-on:draw-from-discard="$emit('draw-from-discard', `BLUE`)" />
-    <discard
+    <trash
         v-bind:color="`WHITE`"
         v-on:draw-from-discard="$emit('draw-from-discard', `WHITE`)" />
-    <discard
+    <trash
         v-bind:color="`GREEN`"
         v-on:draw-from-discard="$emit('draw-from-discard', `GREEN`)" />
-    <discard
+    <trash
         v-bind:color="`RED`"
         v-on:draw-from-discard="$emit('draw-from-discard', `RED`)" />
 
@@ -26,14 +26,14 @@
 
 
 import {mapActions, mapState} from "vuex";
-import Discard from "@/modules/game/discard-area/Discard";
+import Trash from "@/modules/game/discard-area/Trash";
 import CardDeck from "@/modules/game/cards/CardDeck";
 
 export default {
   name: "discard-piles",
   components: {
     // eslint-disable-next-line vue/no-unused-components
-    Discard,
+    Trash,
     CardDeck,
   } ,
   inject: [

@@ -1,4 +1,4 @@
-import VueRouter from "vue-router";
+import { createRouter, createWebHistory } from 'vue-router'
 
 import ApplicationView from "./common/navigation/ApplicationView";
 import UnauthenticatedView from "./common/navigation/UnauthenticatedView"
@@ -14,7 +14,6 @@ import LocalAuthRepository from "@/common/accounts/local-auth-repository";
 const localAuthRepository = new LocalAuthRepository();
 
 export default function configureRouter(vue) {
-  vue.use(VueRouter);
 
   vue.component('application-view', ApplicationView)
   vue.component('unauthenticated-view', UnauthenticatedView)
@@ -24,67 +23,69 @@ export default function configureRouter(vue) {
   const Home = { template: '<div>home</div>' }
 
 
-  let router = new VueRouter({
+  let router = createRouter({
+    history: createWebHistory(),
     mode: "history",
     //base: __dirname,
     routes: [
-      { 
-        path: "/", 
-        component: Home, 
-        meta: { 
-          layout : 'application-view', 
+      {
+        name: 'Home',
+        path: "/",
+        component: Home,
+        meta: {
+          layout : 'application-view',
           requiresAuth: false
         }
       },
-      { 
+      {
         name: 'Login',
-        path: '/login', 
-        component: Login, 
-        meta: { 
-          layout : 'unauthenticated-view', 
+        path: '/login',
+        component: Login,
+        meta: {
+          layout : 'unauthenticated-view',
           requiresAuth: false
-        } 
-      },
-      { 
-        path: "/register", 
-        component: Register, 
-        meta: { 
-          layout : 'unauthenticated-view', 
-          requiresAuth: false
-        } 
-      },
-      {
-        name: 'Matches',
-        path: "/matches", 
-        component: Match,
-        meta: {
-          layout : 'application-view',
-          requiresAuth: true 
         }
       },
-      {
-        path: "/test",
-        component: UiTest,
-        meta: {
-          layout : 'application-view',
-          requiresAuth: true
-        }
-      },
-      {
-        name: "game",
-        path: "/game/:id",
-        component: Game,
-        meta: {
-          layout : 'game-vue',
-          requiresAuth: true
-        }
-      }
+      //{
+      //  path: "/register",
+      //  component: Register,
+      //  meta: {
+      //    layout : 'unauthenticated-view',
+      //    requiresAuth: false
+      //  }
+      //},
+      //{
+      //  name: 'Matches',
+      //  path: "/matches",
+      //  component: Match,
+      //  meta: {
+      //    layout : 'application-view',
+      //    requiresAuth: true
+      //  }
+      //},
+      //{
+      //  path: "/test",
+      //  component: UiTest,
+      //  meta: {
+      //    layout : 'application-view',
+      //    requiresAuth: true
+      //  }
+      //},
+      //{
+      //  name: "game",
+      //  path: "/game/:id",
+      //  component: Game,
+      //  meta: {
+      //    layout : 'game-vue',
+      //    requiresAuth: true
+      //  }
+      //}
     ]
   });
 
   router.beforeEach((to, from, next) => {
     if (to.meta.requiresAuth && !localAuthRepository.isAuthenticated()) {
-      next({ name: 'Login' })  
+      next({ name: 'Login' })
     } else {
       next()
     }

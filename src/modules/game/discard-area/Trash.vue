@@ -18,7 +18,7 @@ import {mapGetters} from "vuex";
 import GameCard from "@/modules/game/cards/GameCard";
 
 export default {
-  name: "discard",
+  name: "trash",
   components: {
     "game-card": GameCard
   },
