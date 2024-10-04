@@ -9,6 +9,11 @@ module.exports = defineConfig({
         //webSocketServer: false,
         //disableHostCheck: true,
         allowedHosts: [
+            "192.168.1.241:8080",
+            "192.168.1.231:8090",
+            "192.168.1.231:8091",
+            "192.168.1.231:8092",
+            "192.168.1.231:8093",
             "lostcities.app"
         ],
 
@@ -21,7 +26,7 @@ module.exports = defineConfig({
             '^/api/matches': {
                 target: 'http://192.168.1.231:8091',
                 changeOrigin: true,
-                logLevel: 'debug'
+                logLevel: 'info'
             },
             '^/api/gamestate': {
                 target: 'http://192.168.1.231:8092',

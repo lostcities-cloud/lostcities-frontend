@@ -4,7 +4,7 @@ import {localAuthRepository} from "@/main";
 export default class MatchesService {
   constructor() {
     this.axios = axios.create({
-      baseUrl: process.env.ACCOUNTS_API,
+      baseUrl: process.env.MATCHES_API,
       timeout: 2000
 
     })
