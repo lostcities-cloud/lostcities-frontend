@@ -1,4 +1,4 @@
-<template>
+<template slot>
   <div>
 
     <component :is="$route.meta.layout">
