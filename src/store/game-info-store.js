@@ -3,18 +3,6 @@ import {localAuthRepository} from "@/main";
 function emptyState() {
     return {
         loading: true,
-        logs: [
-            {
-                player: "dnelson",
-                created: "2000-10-31T01:30:00.000-05:00",
-                message: "Played cared Red 1"
-            },
-            {
-                player: "dnelson",
-                created: "2000-10-31T01:30:00.000-05:00",
-                message: "Discarded Red 2"
-            }
-        ],
         gameState: {
             "id": null,
             "deckRemaining": null,
@@ -27,7 +15,8 @@ function emptyState() {
             },
             "discard": {
                 "board": {"YELLOW": [], "WHITE": [], "BLUE": [], "GREEN": [], "RED": []}
-            }
+            },
+            log: []
         },
 
         turnCommands: {
@@ -62,8 +51,8 @@ function undoDiscardCard(state, card) {
 }
 
 const getters = {
-    logs(state) {
-        return state.logs
+    log(state) {
+        return state.gameState.log
     },
     canPlayOrDiscard(state) {
         return state.gameState.isPlayerTurn && state.turnCommands.playOrDiscard === null

@@ -19,22 +19,22 @@ module.exports = defineConfig({
 
         proxy: {
             '^/api/accounts': {
-                target: 'http://192.168.1.231:8090',
+                target: 'http://192.168.0.220:8090',
                 changeOrigin: true,
                 logLevel: 'debug'
             },
             '^/api/matches': {
-                target: 'http://192.168.1.231:8091',
+                target: 'http://192.168.0.220:8091',
                 changeOrigin: true,
                 logLevel: 'info'
             },
             '^/api/gamestate': {
-                target: 'http://192.168.1.231:8092',
+                target: 'http://192.168.0.220:8092',
                 changeOrigin: true,
                 logLevel: 'debug'
             },
             '^/api/player-events': {
-                target: 'http://192.168.1.231:8093',
+                target: 'http://192.168.0.220:8093',
                 changeOrigin: true,
                 logLevel: 'info',
                 ws: true

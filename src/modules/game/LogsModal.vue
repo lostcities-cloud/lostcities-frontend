@@ -1,7 +1,7 @@
 <template>
   <b-modal id="logs-modal" title="Logs">
-    <p v-for="(log, i) in logs" :key="i" class="log">
-      <strong>{{log.player}}</strong>: {{log.message}}
+    <p v-for="(log, i) in getLogMessages()" :key="i" class="log">
+      {{log}}
     </p>
   </b-modal>
 </template>
@@ -29,12 +29,24 @@ export default {
   computed: {
     ...mapState('accounts', ['login']),
     ...mapGetters('gameInfo', [
-      'logs',
+      'log',
     ])
 
   },
   methods: {
-
+    getLogMessages() {
+      return this.log.map((log) => {
+        if(log.type === "PLAY") {
+          return `[${log.received}] ${log.player} played card ${log.card}`
+        } else if(log.type === "DRAW" && log.color === null) {
+          return `[${log.received}] ${log.player} drew from deck`
+        } else if(log.type === "DRAW" && log.color !== null) {
+          return `[${log.received}] ${log.player} drew from ${log.color} discard pile.`
+        } else if (log.type === "DISCARD") {
+          return `[${log.received}] ${log.player} discarded card ${log.card}`
+        }
+      })
+    }
   }
 
 }
