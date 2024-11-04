@@ -3,9 +3,9 @@
     <div class="text-center bg-light border-bottom"  style="padding-top: 100px; padding-bottom: 30px;">
       <h1 class="mb-3">Matches</h1>
 
-      <b-button v-on:click="createMatch()">Create Game</b-button>
-      <b-button v-on:click="createMatch(true)">Start AI Match</b-button>
-      <b-button v-on:click="resendMatches()">Resend Matches</b-button>
+      <button v-on:click="createMatch()">Create Game</button>
+      <button v-on:click="createMatch(true)">Start AI Match</button>
+      <button v-on:click="resendMatches()">Resend Matches</button>
     </div>
 
 
