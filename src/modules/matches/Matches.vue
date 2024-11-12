@@ -13,12 +13,9 @@
     <b-card-group deck class="matches-active">
       <b-container>
         <b-row>
-            <b-card class="text-center" :class="{textCenter: true, hide: !loadingAvailableMatches}" style="margin-bottom:10px;">
-                <div class="game-card-main" style="min-height: 250px;">
-
-                    <div class="loading"  style="margin: 3em auto;"></div>
-                </div>
-            </b-card>
+          <b-col>
+            <LoadingGameCard v-bind:is-loading="loadingActiveMatches" />
+          </b-col>
         </b-row>
         <b-row v-for="(match, i) in activeMatches.content" v-bind:key="i">
             <b-col>
@@ -30,17 +27,13 @@
 
     <h3>Available Matches</h3>
     <b-card-group deck class="matches-available">
-      <b-container v-if="loadingAvailableMatches">
-          <b-row>
-              <b-card class="text-center" style="margin-bottom:10px;">
-                  <div class="game-card-main" style="min-height: 250px;">
 
-                    <div class="loading"  style="margin: 3em auto;"></div>
-                  </div>
-              </b-card>
+      <b-container>
+        <b-row>
+          <b-col>
+            <LoadingGameCard v-bind:is-loading="loadingAvailableMatches" />
+          </b-col>
         </b-row>
-      </b-container>
-      <b-container v-else>
         <b-row v-for="(match, i) in availableMatches.content" v-bind:key="i">
           <b-col>
             <available-match class="card-item"  v-bind="match"></available-match>
@@ -57,10 +50,12 @@
 import {mapActions, mapGetters} from "vuex";
 import ActiveMatch from "@/modules/matches/ActiveMatch";
 import AvailableMatch from "@/modules/matches/AvailableMatch";
+import LoadingGameCard from "@/modules/matches/LoadingGameCard.vue";
 
 export default {
   name: "login",
   components: {
+      LoadingGameCard,
     ActiveMatch,
     AvailableMatch
 
@@ -92,6 +87,7 @@ export default {
         this.activeMatches = {content: []};
         this.activeMatches = await this.matchesService.getActiveMatches();
         this.loadingActiveMatches = false
+
         this.availableMatches = {content: []};
         this.availableMatches = await this.matchesService.getAvailableMatches()
 
