@@ -12,20 +12,38 @@
     <h3>Active Matches</h3>
     <b-card-group deck class="matches-active">
       <b-container>
+        <b-row>
+            <b-card class="text-center" :class="{textCenter: true, hide: !loadingAvailableMatches}" style="margin-bottom:10px;">
+                <div class="game-card-main" style="min-height: 250px;">
+
+                    <div class="loading"  style="margin: 3em auto;"></div>
+                </div>
+            </b-card>
+        </b-row>
         <b-row v-for="(match, i) in activeMatches.content" v-bind:key="i">
-          <b-col>
-            <active-match v-bind="match"></active-match>
-          </b-col>
+            <b-col>
+                <active-match class="card-item" v-bind="match"></active-match>
+            </b-col>
         </b-row>
       </b-container>
     </b-card-group>
 
     <h3>Available Matches</h3>
     <b-card-group deck class="matches-available">
-      <b-container>
+      <b-container v-if="loadingAvailableMatches">
+          <b-row>
+              <b-card class="text-center" style="margin-bottom:10px;">
+                  <div class="game-card-main" style="min-height: 250px;">
+
+                    <div class="loading"  style="margin: 3em auto;"></div>
+                  </div>
+              </b-card>
+        </b-row>
+      </b-container>
+      <b-container v-else>
         <b-row v-for="(match, i) in availableMatches.content" v-bind:key="i">
           <b-col>
-            <available-match v-bind="match"></available-match>
+            <available-match class="card-item"  v-bind="match"></available-match>
 
           </b-col>
         </b-row>
@@ -49,7 +67,9 @@ export default {
   },
   data() {
     return {
+      loadingActiveMatches: true,
       activeMatches: {content: []},
+      loadingAvailableMatches: true,
       availableMatches: {content: []}
     }
   },
@@ -57,8 +77,7 @@ export default {
     'matchesService'
   ],
   async created() {
-    this.activeMatches = await this.matchesService.getActiveMatches();
-    this.availableMatches = await this.matchesService.getAvailableMatches()
+      return this.loadMatches()
   },
 
   computed: {
@@ -67,20 +86,30 @@ export default {
 
   methods: {
     ...mapActions('matches', ['getMatches']),
+    async loadMatches() {
+        this.loadingActiveMatches = true
+        this.loadingAvailableMatches = true
+        this.activeMatches = {content: []};
+        this.activeMatches = await this.matchesService.getActiveMatches();
+        this.loadingActiveMatches = false
+        this.availableMatches = {content: []};
+        this.availableMatches = await this.matchesService.getAvailableMatches()
 
+        this.loadingAvailableMatches = false
+    },
     async resendMatches() {
       return this.matchesService.resendMatches()
     },
 
     async createMatch(ai=false) {
       try {
-        const createdMatch = await this.matchesService.create(ai)
+        await this.matchesService.create(ai)
         this.$notify({
           text: 'Created match!',
           type: 'success'
         })
-        await this.$router.go();
-        return createdMatch
+
+        return this.loadMatches()
       } catch (e) {
         this.$notify({
           text: 'Unable to create match.',
@@ -90,7 +119,8 @@ export default {
     },
 
     async join(id) {
-      return await this.matchesService.join(id)
+      await this.matchesService.join(id)
+      return this.loadMatches()
     },
 
     isMyMatch(match) {
@@ -121,9 +151,39 @@ h3 {
 .matches {
 
 }
-
 .card {
+    margin-bottom: 10px;
+}
+
+.hide {
+    animation: hide 600ms 100ms cubic-bezier(0.38, 0.97, 0.56, 0.76) forwards;
+    opacity: 100;
+    transform: none;
+    transform-origin: top center;
+}
+
+.card-item {
   margin-bottom: 10px;
+  animation: show 600ms 100ms cubic-bezier(0.38, 0.97, 0.56, 0.76) forwards;
+
+  opacity: 1;
+
+  transform: rotateX(-90deg);
+  transform-origin: top center;
+}
+
+@keyframes show {
+    100% {
+        opacity: 1;
+        transform: none;
+    }
+}
+
+@keyframes hide {
+    100%  {
+        transform: rotateX(-90deg);
+        height:0;
+    }
 }
 
 .game-links {
