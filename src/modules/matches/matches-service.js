@@ -25,9 +25,15 @@ export default class MatchesService {
     })
   }
 
-  async create() {
+  async create(isAi) {
+    let url = `/api/matches`
+
+    if(isAi) {
+      url = url + "?isAi"
+    }
+
     try {
-      let response = await this.axios.post(`/api/matches`, {})
+      let response = await this.axios.post(url, {})
       return response.data
     } catch(e) {
       throw new Error("Unable to create match.")

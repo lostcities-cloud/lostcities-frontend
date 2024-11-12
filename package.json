@@ -1,6 +1,6 @@
 {
   "name": "@lostcities-cloud/lostcities-frontend",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "private": false,
   "repository": "https://github.com/lostcities-cloud/lostcities-frontend",
   "publishConfig": {
@@ -14,7 +14,7 @@
     "test": "npm run lint && npm run unit",
     "unit": "jest",
     "pack": "cp package.json ./dist && npm pack ./dist && mv lostcities-cloud-lostcities-frontend-*.tgz ./dist/lostcities-frontend.tgz",
-    "publish": "gh release create 0.1.5 --latest dist/lostcities-frontend.tgz",
+    "publish": "gh release create 0.1.6 --latest dist/lostcities-frontend.tgz",
     "build-docker": "docker build . -t ghcr.io/lostcities-cloud/lostcities-frontend",
     "push-docker": "docker push ghcr.io/lostcities-cloud/lostcities-frontend"
   },
