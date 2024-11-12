@@ -28,12 +28,8 @@ export default class MatchesService {
   async create(isAi) {
     let url = `/api/matches`
 
-    if(isAi) {
-      url = url + "?isAi=true"
-    }
-
     try {
-      let response = await this.axios.post(url, {isAi})
+      let response = await this.axios.post(url, {isAi: !!isAi})
       return response.data
     } catch(e) {
       throw new Error("Unable to create match.")
