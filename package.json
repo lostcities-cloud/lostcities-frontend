@@ -1,6 +1,6 @@
 {
   "name": "@lostcities-cloud/lostcities-frontend",
-  "version": "0.1.9",
+  "version": "0.1.11",
   "private": false,
   "repository": "https://github.com/lostcities-cloud/lostcities-frontend",
   "publishConfig": {
@@ -9,12 +9,12 @@
   "description": "",
   "scripts": {
     "serve": "vue-cli-service serve --config vue.config.js",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build && cp ./src/assets/* ./dist/img/",
     "lint": "vue-cli-service lint",
     "test": "npm run lint && npm run unit",
     "unit": "jest",
     "pack": "cp package.json ./dist && npm pack ./dist && mv lostcities-cloud-lostcities-frontend-*.tgz ./dist/lostcities-frontend.tgz",
-    "publish": "gh release create 0.1.9 --latest dist/lostcities-frontend.tgz",
+    "publish": "gh release create 0.1.11 --latest dist/lostcities-frontend.tgz",
     "build-docker": "docker build . -t ghcr.io/lostcities-cloud/lostcities-frontend",
     "push-docker": "docker push ghcr.io/lostcities-cloud/lostcities-frontend"
   },
