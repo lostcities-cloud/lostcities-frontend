@@ -3,8 +3,13 @@ import Vuex from 'vuex'
 import configureRouter from "./router-configurer";
 
 import { BootstrapVue, IconsPlugin } from 'bootstrap-vue'
+import 'bootstrap/dist/css/bootstrap-reboot.css'
 import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
+import 'bootstrap/dist/css/bootstrap-grid.css'
+import 'bootstrap/dist/css/bootstrap-utilities.css'
+
+
+//import 'bootstrap-vue/dist/bootstrap-vue.css'
 
 import Notifications from 'vue-notification'
 
@@ -19,7 +24,7 @@ import GameService from "@/modules/game/game-service";
 Vue.config.productionTip = false;
 
 Vue.use(BootstrapVue)
-Vue.use(IconsPlugin)
+  Vue.use(IconsPlugin)
 Vue.use(Notifications)
 Vue.use(Vuex)
 

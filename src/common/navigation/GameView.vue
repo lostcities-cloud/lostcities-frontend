@@ -24,7 +24,7 @@
     <logs-model></logs-model>
     <b-container>
       <b-row>
-        <b-col cols="8" class="text-dark border rounded" >
+        <b-col cols="8">
           <slot />
         </b-col>
         <b-col cols="4" class="game-info">
@@ -36,7 +36,6 @@
 </template>
 
 <script>
-import {router} from "@/main";
 import GameInfo from "@/modules/game-info/GameInfo";
 import LogsModel from "@/modules/game/LogsModal";
 
@@ -50,7 +49,7 @@ export default {
   },
   methods: {
     back() {
-      return router.push({path: "/matches"});
+      return this.$router.push({ name: 'Matches'})
     },
   },
 };

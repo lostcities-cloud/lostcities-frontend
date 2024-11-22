@@ -1,5 +1,5 @@
 <template>
-  <div class="game-info-view rounded">
+  <div class="game-info-view rounded text-bg-light">
 
     <div class="play">
       <p v-if="isPlayerTurn">

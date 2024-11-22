@@ -26,11 +26,12 @@ export default function configureRouter(vue) {
     //base: __dirname,
     routes: [
       {
+        name: 'Matches',
         path: "/",
         component: Match,
         meta: {
           layout : 'application-view',
-          requiresAuth: false
+          requiresAuth: true
         }
       },
       {
@@ -48,15 +49,6 @@ export default function configureRouter(vue) {
         meta: {
           layout : 'unauthenticated-view',
           requiresAuth: false
-        }
-      },
-      {
-        name: 'Matches',
-        path: "/matches",
-        component: Match,
-        meta: {
-          layout : 'application-view',
-          requiresAuth: true
         }
       },
       {

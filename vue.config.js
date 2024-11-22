@@ -9,32 +9,32 @@ module.exports = defineConfig({
         //webSocketServer: false,
         //disableHostCheck: true,
         allowedHosts: [
-            "192.168.1.241:8080",
-            "192.168.1.231:8090",
-            "192.168.1.231:8091",
-            "192.168.1.231:8092",
-            "192.168.1.231:8093",
+            "192.168.1.201:8080",
+            "192.168.1.201:8090",
+            "192.168.1.201:8091",
+            "192.168.1.201:8092",
+            "192.168.1.201:8093",
             "lostcities.app"
         ],
 
         proxy: {
             '^/api/accounts': {
-                target: 'http://192.168.1.233:9999',
+                target: 'http://192.168.1.233:23731',
                 changeOrigin: true,
                 logLevel: 'debug'
             },
             '^/api/matches': {
-                target: 'http://192.168.1.233:9999',
+                target: 'http://192.168.1.233:23731',
                 changeOrigin: true,
                 logLevel: 'info'
             },
             '^/api/gamestate': {
-                target: 'http://192.168.1.233:9999',
+                target: 'http://192.168.1.233:23731',
                 changeOrigin: true,
                 logLevel: 'debug'
             },
             '^/api/player-events': {
-                target: 'http://192.168.1.233:9999',
+                target: 'http://192.168.1.233:23731',
                 changeOrigin: true,
                 logLevel: 'info',
                 ws: true

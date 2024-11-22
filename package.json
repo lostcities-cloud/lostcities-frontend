@@ -1,6 +1,6 @@
 {
   "name": "@lostcities-cloud/lostcities-frontend",
-  "version": "0.1.12",
+  "version": "0.1.14",
   "private": false,
   "repository": "https://github.com/lostcities-cloud/lostcities-frontend",
   "publishConfig": {
@@ -14,14 +14,15 @@
     "test": "npm run lint && npm run unit",
     "unit": "jest",
     "pack": "cp package.json ./dist && npm pack ./dist && mv lostcities-cloud-lostcities-frontend-*.tgz ./dist/lostcities-frontend.tgz",
-    "publish": "gh release create 0.1.12 --latest dist/lostcities-frontend.tgz",
+    "publish": "gh release create 0.1.14 --latest dist/lostcities-frontend.tgz",
     "build-docker": "docker build . -t ghcr.io/lostcities-cloud/lostcities-frontend",
     "push-docker": "docker push ghcr.io/lostcities-cloud/lostcities-frontend"
   },
   "dependencies": {
     "axios": "0.21.1",
-    "bootstrap": "4.5.3",
+    "bootstrap": "^5.3.3",
     "bootstrap-vue": "2.21.2",
+    "jdenticon": "^3.3.0",
     "net": "^1.0.2",
     "node-sass": "^7.0.1",
     "sockjs-client": "1.5.2",
