@@ -19,7 +19,7 @@ module.exports = defineConfig({
 
         proxy: {
             '^/api/accounts': {
-                target: 'http://192.168.1.233:23731',
+                target: 'http://localhost:8080',
                 changeOrigin: true,
                 logLevel: 'debug'
             },
