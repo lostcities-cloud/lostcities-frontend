@@ -19,22 +19,22 @@ module.exports = defineConfig({
 
         proxy: {
             '^/api/accounts': {
-                target: 'http://localhost:8080',
+                target: 'https://lostcities.app',
                 changeOrigin: true,
                 logLevel: 'debug'
             },
             '^/api/matches': {
-                target: 'http://192.168.1.233:23731',
+                target: 'https://lostcities.app',
                 changeOrigin: true,
                 logLevel: 'info'
             },
             '^/api/gamestate': {
-                target: 'http://192.168.1.233:23731',
+                target: 'https://lostcities.app',
                 changeOrigin: true,
                 logLevel: 'debug'
             },
             '^/api/player-events': {
-                target: 'http://192.168.1.233:23731',
+                target: 'https://lostcities.app',
                 changeOrigin: true,
                 logLevel: 'info',
                 ws: true

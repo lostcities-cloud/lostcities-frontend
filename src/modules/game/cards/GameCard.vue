@@ -82,12 +82,109 @@ export default {
 
 <style scoped>
 
+@media (width < 576px) {
+  .game-card {
+    width: 100px;
+    margin-left: 10px;
+  }
+
+  .game-card-body {
+    margin: 0 10px 10px;
+    height: 100px;
+  }
+
+  .game-card-header {
+    font-size: 17pt;
+    height: 30px;
+  }
+
+  .card-emoji {
+    font-size: 50px;
+    line-height: 100px;
+    height: 100px;
+    width: 80px;
+  }
+}
+
+@media (width >= 576px) {
+  .game-card {
+    width: 60px;
+    margin-left: 10px;
+  }
+
+  .game-card-body {
+    margin: 0 10px 10px;
+    height: 60px;
+  }
+
+  .game-card-header {
+    font-size: 17pt;
+    height: 30px;
+  }
+
+  .card-emoji {
+    font-size: 50px;
+    line-height: 100px;
+    height: 100px;
+    width: 80px;
+  }
+}
+
+@media (width >= 768px) {
+  .game-card {
+    width: 60px;
+    margin-left: 10px;
+  }
+
+  .game-card-body {
+    margin: 0 10px 10px;
+    height: 60px;
+  }
+
+  .game-card-header {
+    font-size: 17pt;
+    height: 30px;
+  }
+
+  .card-emoji {
+    font-size: 50px;
+    line-height: 60px;
+    height: 60px;
+    width: 80px;
+  }
+}
+
+@media (width >= 992px) {
+  .game-card {
+    width: 100px;
+    margin-left: 10px;
+  }
+
+  .game-card-body {
+    margin: 0 10px 10px;
+    height: 100px;
+  }
+
+  .game-card-header {
+    font-size: 17pt;
+    height: 30px;
+  }
+
+  .card-emoji {
+    font-size: 50px;
+    line-height: 100px;
+    height: 100px;
+    width: 80px;
+  }
+}
+
+@media (max-width: 1200px) {
+
+}
 
 .game-card {
   display: inline-block;
-  width:100px;
   background-color: black;
-  margin-left: 10px;
   border-radius: 5px;
   box-shadow: 0 1px 5px #000000d6;
 
@@ -108,8 +205,6 @@ export default {
 }
 
 .game-card-body {
-  margin: 0 10px 10px;
-  height:100px;
   background-color: #ff0bf2;
   position:relative;
   display: block;
@@ -117,10 +212,6 @@ export default {
 }
 
 .card-emoji {
-  font-size: 50px;
-  line-height: 100px;
-  height: 100px;
-  width: 80px;
   display: inline-block;
   background: radial-gradient(circle, rgba(255,255,255,.7) 0%, rgba(255,255,255,0) 100%);
   font-family: apple color emoji,segoe ui emoji,noto color emoji,android emoji,emojisymbols,emojione mozilla,twemoji mozilla,segoe ui symbol;

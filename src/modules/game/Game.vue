@@ -157,9 +157,55 @@ Draw From Deck: {type: "draw", color: "YELLOW"}
 
 <style scoped>
 
-.game-board {
-  margin-left:15px;
-  width: 700px;
+@media (width < 576px) {
+
+}
+
+@media (width >= 576px) {
+
+}
+
+@media (width >= 768px) {
+  .game-board {
+    margin-left:30px;
+    width: 700px;
+  }
+
+  .card-hand {
+    bottom: -50px;
+
+    margin-left:100px;
+    width: 600px;
+    left: 0;
+  }
+}
+
+@media (width >= 992px) {
+  .game-board {
+    margin-left:15px;
+    width: 700px;
+  }
+
+  .card-hand {
+    bottom: -50px;
+    width: 700px;
+    left: 0;
+  }
+}
+
+@media (max-width: 1200px) {
+  .game-board {
+    bottom: -50px;
+    margin-left:-15px;
+    width: 100px;
+
+  }
+
+  .card-hand {
+    width:100%;
+    height:100px;
+    bottom: 100px
+  }
 }
 
 .play-area-bottom .play-area {
@@ -187,11 +233,7 @@ Draw From Deck: {type: "draw", color: "YELLOW"}
 
 .card-hand {
   position: fixed;
-  bottom: -50px;
   text-align: center;
-  width: 100%;
-  left: 0;
-  margin-left: -150px;
 }
 
 .card-hand > * {
