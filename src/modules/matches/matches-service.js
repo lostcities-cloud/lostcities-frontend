@@ -36,6 +36,17 @@ export default class MatchesService {
     }
   }
 
+  async createBatchAiMatches(count=1000) {
+    let url = `/api/matches`
+
+    try {
+      let response = await this.axios.post(url, {isAi: true, count: count})
+      return response.data
+    } catch(e) {
+      throw new Error("Unable to create match.")
+    }
+  }
+
   async join(id) {
     try {
       let response = await this.axios.patch(`/api/matches/${id}`)

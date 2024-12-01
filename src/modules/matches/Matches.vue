@@ -15,6 +15,9 @@
           <a v-on:click="resendMatches()" role="button" class="list-group-item list-group-item-action py-3 lh-sm text-bg-secondary" aria-current="true">
             Resend Matches
           </a>
+          <a v-on:click="createBatchAiMatches(1000)" role="button" class="list-group-item list-group-item-action py-3 lh-sm text-bg-secondary" aria-current="true">
+            Create Batched AI Matches
+          </a>
         </div>
       </div>
       <div class="col col-lg-9">
@@ -125,6 +128,23 @@ export default {
                 })
             }
         },
+
+      async createBatchAiMatches(ai=false) {
+        try {
+          await this.matchesService.createBatchAiMatches(ai)
+          this.$notify({
+            text: 'Created match!',
+            type: 'success'
+          })
+
+          return this.loadMatches()
+        } catch (e) {
+          this.$notify({
+            text: 'Unable to create match.',
+            type: 'error'
+          })
+        }
+      },
 
         async join(id) {
             await this.matchesService.join(id)
