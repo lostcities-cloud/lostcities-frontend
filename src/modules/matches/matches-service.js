@@ -37,7 +37,7 @@ export default class MatchesService {
   }
 
   async createBatchAiMatches(count=1000) {
-    let url = `/api/matches`
+    let url = `/api/matches/admin/ai/matches`
 
     try {
       let response = await this.axios.post(url, {isAi: true, count: count})

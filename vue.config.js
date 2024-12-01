@@ -26,7 +26,7 @@ module.exports = defineConfig({
             '^/api/matches': {
                 target: 'https://lostcities.app',
                 changeOrigin: true,
-                logLevel: 'info'
+                logLevel: 'debug'
             },
             '^/api/gamestate': {
                 target: 'https://lostcities.app',

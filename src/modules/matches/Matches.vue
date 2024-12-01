@@ -129,9 +129,9 @@ export default {
             }
         },
 
-      async createBatchAiMatches(ai=false) {
+      async createBatchAiMatches(count=1000) {
         try {
-          await this.matchesService.createBatchAiMatches(ai)
+          await this.matchesService.createBatchAiMatches(count)
           this.$notify({
             text: 'Created match!',
             type: 'success'
