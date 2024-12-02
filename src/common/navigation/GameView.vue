@@ -22,16 +22,16 @@
       </li>
     </ul>
     <logs-model></logs-model>
-    <b-container>
-      <b-row>
-        <b-col cols="8">
-          <slot />
-        </b-col>
-        <b-col cols="4" class="game-info">
+    <div class="container-fluid" style="max-width: 1000px;">
+      <div class="row row-cols-lg-12" style="max-width: 752px">
+        <div class="col-lg-4 col-md-12 col-sm-12 game-info">
           <game-info id="game-info"></game-info>
-        </b-col>
-      </b-row>
-    </b-container>
+        </div>
+        <div class="col-lg-8 col-md-12 col-sm-12 col-12" style="max-width: 752px">
+          <slot />
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
