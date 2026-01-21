@@ -11,6 +11,7 @@ import Game from "./modules/game/Game";
 import UiTest from "./modules/ui-test/UiTest"
 
 import LocalAuthRepository from "@/common/accounts/local-auth-repository";
+import Actuator from "@/modules/admin/Actuator.vue";
 const localAuthRepository = new LocalAuthRepository();
 
 export default function configureRouter(vue) {
@@ -54,6 +55,14 @@ export default function configureRouter(vue) {
       {
         path: "/test",
         component: UiTest,
+        meta: {
+          layout : 'application-view',
+          requiresAuth: true
+        }
+      },
+      {
+        path: "/admin",
+        component: Actuator,
         meta: {
           layout : 'application-view',
           requiresAuth: true

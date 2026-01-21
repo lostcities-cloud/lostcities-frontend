@@ -51,7 +51,27 @@ module.exports = defineConfig({
                 changeOrigin: true,
                 logLevel: 'info',
                 ws: true
-            }
+            },
+            '^/management/accounts': {
+              target: 'http://localhost:4450',
+              changeOrigin: true
+
+            },
+            '^/management/matches': {
+              target: 'http://localhost:4453',
+              changeOrigin: true
+
+            },
+            '^/management/gamestate': {
+              target: 'http://localhost:4454',
+              changeOrigin: true
+
+            },
+            '^/management/player-events': {
+              target: 'http://localhost:4455',
+              changeOrigin: true
+
+            },
         }
     },
 
